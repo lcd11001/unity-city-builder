@@ -1177,6 +1177,7 @@ GameObject:
   - component: {fileID: 516491930}
   - component: {fileID: 516491931}
   - component: {fileID: 516491932}
+  - component: {fileID: 516491933}
   m_Layer: 0
   m_Name: _Manager
   m_TagString: Untagged
@@ -1227,8 +1228,32 @@ MonoBehaviour:
   tilePrefab: {fileID: 6378982534612795346, guid: 209ca66a82cfb5f44b2100a1c5d953dd, type: 3}
   tilesHolder: {fileID: 1536975773}
   tileSize: 1
+  tileEndHeight: 0.875
   levelWidth: 20
   levelLength: 20
+  resourcesHolder: {fileID: 661099352}
+  woodPrefab: {fileID: 7379150651329580945, guid: 7277f44e683107d4699278c808751b90, type: 3}
+  rockPrefab: {fileID: 3843334483094866674, guid: a147439d84949fe47b9fbfda14a05337, type: 3}
+  obstacleChance: 0.5
+  xBounds: 4
+  zBounds: 4
+--- !u!114 &516491933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516491929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548f92298efcb3d46aea3d2c103322f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWood: 1000
+  maxStone: 1000
+  maxPremiumCurrency: 1000
+  maxStandardCurrency: 1000
+  debugValue: 0
 --- !u!1 &529302669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1389,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529302669}
   m_CullTransparentMesh: 1
+--- !u!1 &661099351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661099352}
+  m_Layer: 0
+  m_Name: ResourcesHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &661099352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661099351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.16402, y: -8.602205, z: 11.519472}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698685605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,7 +2021,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241114710
 GameObject:
