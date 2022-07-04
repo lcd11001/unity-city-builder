@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public int levelWidth;
     public int levelLength;
 
+    [Space(8)]
+    public TileObject[,] tileGrid = new TileObject[0, 0];
+
     [Header("Resources")]
     [Space(8)]
     public Transform resourcesHolder;
@@ -34,12 +37,20 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CreateLevel()
     {
+        CreateGrid(levelWidth, levelLength);
+
         for (int x = 0; x < levelWidth; x++)
         {
             for (int z = 0; z < levelLength; z++)
             {
+                // Directly spawn a tile
                 TileObject spawnedTile = SpawnTile(x * tileSize, z * tileSize);
 
+                // Set the TileObject world space data
+                spawnedTile.xPos = x;
+                spawnedTile.zPos = z;
+
+                // Check whenever we can spawn an obstacle inside a tile, using bound data
                 bool obstacleX = (x < xBounds || x > levelWidth - xBounds - 1);
                 bool obstacleZ = (z < zBounds || z > levelLength - zBounds - 1);
 
@@ -64,6 +75,8 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                // Add the spawned visual tile object inside the grid
+                UpdateGrid(x, z, spawnedTile);
             }
         }
     }
@@ -111,5 +124,27 @@ public class GameManager : MonoBehaviour
 
         spawnedObstacle.transform.position = new Vector3(xPos, tileEndHeight, zPos);
         spawnedObstacle.transform.SetParent(resourcesHolder);
+    }
+
+    /// <summary>
+    /// Create tile grid to add buildings
+    /// </summary>
+    /// <param name="width">width of grid</param>
+    /// <param name="length">length of grid</param>
+    public void CreateGrid(int width, int length)
+    {
+        tileGrid = new TileObject[levelWidth, levelLength];
+    }
+
+    /// <summary>
+    /// Update tile grid data
+    /// </summary>
+    /// <param name="xPos">X position in real world</param>
+    /// <param name="zPos">Z position in real world</param>
+    /// <param name="tile">tile data</param>
+    public void UpdateGrid(int xPos, int zPos, TileObject tile)
+    {
+        tileGrid[xPos, zPos] = tile;
+        Debug.Log(tileGrid[xPos, zPos].gameObject.name);
     }
 }
