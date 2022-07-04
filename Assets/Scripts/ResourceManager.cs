@@ -38,32 +38,56 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public void AddWood(int amount)
+    public bool AddWood(int amount)
     {
-        wood = Mathf.Min(wood + amount, maxWood);
+        int tmp = wood + amount;
+        if (tmp > maxWood)
+        {
+            return false;
+        }
+        wood = tmp;
 
         // TODO: update UI 
+        return true;
     }
 
-    public void AddStone(int amount)
+    public bool AddStone(int amount)
     {
-        stone = Mathf.Min(stone + amount, maxStone);
+        int tmp = stone + amount;
+        if (tmp > maxStone)
+        {
+            return false;
+        }
+        stone = tmp;
 
         // TODO: update UI 
+        return true;
     }
 
-    public void AddStandardC(int amount)
+    public bool AddStandardC(int amount)
     {
-        standardC = Mathf.Min(standardC + amount, maxStandardCurrency);
+        int tmp = standardC + amount;
+        if (tmp > maxStandardCurrency)
+        {
+            return false;
+        }
+        standardC = tmp;
 
         // TODO: update UI 
+        return true;
     }
 
-    public void AddPremiumC(int amount)
+    public bool AddPremiumC(int amount)
     {
-        premiumC = Mathf.Min(premiumC + amount, maxPremiumCurrency);
+        int tmp = premiumC + amount;
+        if (tmp > maxPremiumCurrency)
+        {
+            return false;
+        }
+        premiumC = tmp;
 
         // TODO: update UI 
+        return true;
     }
 
     private void DebugValue()

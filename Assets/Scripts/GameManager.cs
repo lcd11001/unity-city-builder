@@ -65,13 +65,9 @@ public class GameManager : MonoBehaviour
                     bool spawnObstacle = Random.value <= obstacleChance;
                     if (spawnObstacle)
                     {
-                        // handle spawn obstacle
-                        // Debug.Log("Spawned obstacle on " + spawnedTile.gameObject.name);
-                        // spawnedTile.transform.Translate(new Vector3(0, 0.5f, 0));
-                        // spawnedTile.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-
                         spawnedTile.data.SetOccupied(Tile.ObstacleType.Resource);
-                        SpawnObstacle(spawnedTile.transform.position.x, spawnedTile.transform.position.z);
+                        ObstacleObject spawnedObstacle = SpawnObstacle(spawnedTile.transform.position.x, spawnedTile.transform.position.z);
+                        spawnedObstacle.SetTileReference(spawnedTile);
                     }
                 }
 
@@ -91,10 +87,8 @@ public class GameManager : MonoBehaviour
     {
         GameObject tmpTile = Instantiate(tilePrefab);
         tmpTile.transform.position = new Vector3(xPos, 0, zPos);
-        tmpTile.name = $"Tile (clone) {xPos}:{zPos}";
+        tmpTile.name = $"{tilePrefab.name} (clone) {xPos}:{zPos}";
         tmpTile.transform.SetParent(tilesHolder);
-
-        // check if the tile is able 
 
         return tmpTile.GetComponent<TileObject>();
     }
@@ -104,7 +98,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="xPos">X Position of the obstacle</param>
     /// <param name="zPos">Z Position of the obstacle</param>
-    public void SpawnObstacle(float xPos, float zPos)
+    ObstacleObject SpawnObstacle(float xPos, float zPos)
     {
         // It has 50% of spawning a wood obstacle
         bool isWood = Random.value <= 0.5f;
@@ -124,6 +118,8 @@ public class GameManager : MonoBehaviour
 
         spawnedObstacle.transform.position = new Vector3(xPos, tileEndHeight, zPos);
         spawnedObstacle.transform.SetParent(resourcesHolder);
+
+        return spawnedObstacle.GetComponent<ObstacleObject>();
     }
 
     /// <summary>
@@ -145,6 +141,6 @@ public class GameManager : MonoBehaviour
     public void UpdateGrid(int xPos, int zPos, TileObject tile)
     {
         tileGrid[xPos, zPos] = tile;
-        Debug.Log(tileGrid[xPos, zPos].gameObject.name);
+        // Debug.Log(tileGrid[xPos, zPos].gameObject.name);
     }
 }
