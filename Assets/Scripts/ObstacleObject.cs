@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ObstacleObject : MonoBehaviour
 {
-    public ObstacleType obstacleType;
-    public int resourceAmount = 10;
+    public Obstacle data;
 
     /// <summary>
     /// This is a method that it is called whenever the item has been clicked or tapped.
@@ -16,23 +15,19 @@ public class ObstacleObject : MonoBehaviour
         Debug.Log("clicked on " + gameObject.name);
 
         // we can call directly the method that adds the resource
-        switch (obstacleType)
+        switch (data.obstacleType)
         {
-            case ObstacleType.Wood:
-                ResourceManager.Instance.AddWood(resourceAmount);
+            case Obstacle.ObstacleType.Wood:
+                ResourceManager.Instance.AddWood(data.resourceAmount);
                 break;
 
-            case ObstacleType.Rock:
-                ResourceManager.Instance.AddStone(resourceAmount);
+            case Obstacle.ObstacleType.Rock:
+                ResourceManager.Instance.AddStone(data.resourceAmount);
                 break;
         }
 
         Destroy(gameObject);
     }
 
-    public enum ObstacleType
-    {
-        Wood,
-        Rock
-    }
+    
 }
