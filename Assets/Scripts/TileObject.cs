@@ -14,5 +14,13 @@ public class TileObject : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Clicked on " + gameObject.name);
+        if (GameManager.Instance.buildingToPlace != null)
+        {
+            GameManager.Instance.SpawnBuilding(GameManager.Instance.buildingToPlace, this);
+        }
+        else
+        {
+            Debug.Log("building to place is null");
+        }
     }
 }

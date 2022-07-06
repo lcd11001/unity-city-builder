@@ -12,6 +12,9 @@ public class Building
     // Z-axis that will be used inside the grid
     public int length = 0;
 
+    // Visual of building
+    public GameObject buildingModel;
+
     // type of functionality of the building
     public ResourceType resourceType = ResourceType.None;
 

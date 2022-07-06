@@ -1237,6 +1237,7 @@ MonoBehaviour:
   obstacleChance: 0.5
   xBounds: 4
   zBounds: 4
+  buildingToPlace: {fileID: 1224000930870353375, guid: 66c82317174dcef47b83652e02036670, type: 3}
 --- !u!114 &516491933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,7 +2376,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

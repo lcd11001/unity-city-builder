@@ -27,6 +27,18 @@ public class GameManager : MonoBehaviour
     public int xBounds = 3;
     public int zBounds = 3;
 
+    [Space(8)]
+    // Debug method (the selected building)
+    public BuildingObject buildingToPlace;
+
+
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         CreateLevel();
@@ -142,5 +154,19 @@ public class GameManager : MonoBehaviour
     {
         tileGrid[xPos, zPos] = tile;
         // Debug.Log(tileGrid[xPos, zPos].gameObject.name);
+    }
+
+    /// <summary>
+    /// Placing of the building
+    /// </summary>
+    /// <param name="building">building to place</param>
+    /// <param name="tile">tile to place the buliding to</param>
+    public void SpawnBuilding(BuildingObject building, TileObject tile)
+    {
+        GameObject spawnBuilding = Instantiate(building.gameObject);
+        spawnBuilding.name = $"{building.name} (clone) {tile.xPos}:{tile.zPos}";
+
+        Vector3 position = new Vector3(tile.xPos * tileSize, tileEndHeight, tile.zPos * tileSize);
+        spawnBuilding.transform.position = position;
     }
 }
