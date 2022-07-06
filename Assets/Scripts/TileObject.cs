@@ -14,13 +14,48 @@ public class TileObject : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Clicked on " + gameObject.name);
-        if (GameManager.Instance.buildingToPlace != null)
+        if (!data.IsOccupied)
         {
-            GameManager.Instance.SpawnBuilding(GameManager.Instance.buildingToPlace, this);
+            if (GameManager.Instance.buildingToPlace != null)
+            {
+                if (CheckPlaceBuildingAvailable(GameManager.Instance.buildingToPlace))
+                {
+                    BuildingObject building = GameManager.Instance.SpawnBuilding(GameManager.Instance.buildingToPlace, this);
+                    // data.SetOccupied(Tile.ObstacleType.Building, building.data);
+                    GameManager.Instance.UpdateGridBuilding(xPos, zPos, building);
+                }
+                else
+                {
+                    Debug.Log("Not enough space for this building");
+                }
+            }
+            else
+            {
+                Debug.Log("building to place is null");
+            }
         }
         else
         {
-            Debug.Log("building to place is null");
+            Debug.Log("This tile is occupied by " + data.obstacleType);
+            if (data.buildingRef != null)
+            {
+                Debug.Log("   - Building " + data.buildingRef.buildingModel.gameObject.name);
+            }
         }
+    }
+
+    private bool CheckPlaceBuildingAvailable(BuildingObject building)
+    {
+        for (int x = xPos; x < xPos + building.data.width; x++)
+        {
+            for (int z = zPos; z < zPos + building.data.length; z++)
+            {
+                if (GameManager.Instance.tileGrid[x, z].data.IsOccupied)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

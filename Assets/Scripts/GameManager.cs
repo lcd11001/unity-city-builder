@@ -156,17 +156,30 @@ public class GameManager : MonoBehaviour
         // Debug.Log(tileGrid[xPos, zPos].gameObject.name);
     }
 
+    public void UpdateGridBuilding(int xPos, int zPos, BuildingObject building)
+    {
+        for (int x = xPos; x < xPos + building.data.width; x++)
+        {
+            for (int z = zPos; z < zPos + building.data.length; z++)
+            {
+                tileGrid[x, z].data.SetOccupied(Tile.ObstacleType.Building, building.data);
+            }
+        }
+    }
+
     /// <summary>
     /// Placing of the building
     /// </summary>
     /// <param name="building">building to place</param>
     /// <param name="tile">tile to place the buliding to</param>
-    public void SpawnBuilding(BuildingObject building, TileObject tile)
+    public BuildingObject SpawnBuilding(BuildingObject building, TileObject tile)
     {
         GameObject spawnBuilding = Instantiate(building.gameObject);
         spawnBuilding.name = $"{building.name} (clone) {tile.xPos}:{tile.zPos}";
 
         Vector3 position = new Vector3(tile.xPos * tileSize, tileEndHeight, tile.zPos * tileSize);
         spawnBuilding.transform.position = position;
+
+        return spawnBuilding.GetComponent<BuildingObject>();
     }
 }
