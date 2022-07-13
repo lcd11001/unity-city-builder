@@ -36,8 +36,7 @@ public class Tile
     public void CleanTile()
     {
         obstacleType = ObstacleType.None;
-        // LCD: missing ??? 
-        // buildingRef = null;
+        buildingRef = null;
     }
 
     public void StarterTileValue(bool value)

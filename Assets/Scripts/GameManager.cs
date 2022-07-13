@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviour
     public int xBounds = 3;
     public int zBounds = 3;
 
+    [Header("Buildings")]
     [Space(8)]
     // Debug method (the selected building)
+    public Transform buildingsHolder;
     public BuildingObject buildingToPlace;
 
 
@@ -177,6 +179,7 @@ public class GameManager : MonoBehaviour
     public BuildingObject SpawnBuilding(BuildingObject building, TileObject tile)
     {
         GameObject spawnBuilding = Instantiate(building.gameObject);
+        spawnBuilding.transform.SetParent(buildingsHolder);
         spawnBuilding.name = $"{building.name} (clone) {tile.xPos}:{tile.zPos}";
 
         Vector3 position = new Vector3(tile.xPos * tileSize, tileEndHeight, tile.zPos * tileSize);
