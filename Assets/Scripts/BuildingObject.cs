@@ -21,7 +21,12 @@ public class BuildingObject : MonoBehaviour
 
     private void Start()
     {
-        buildingBehaviour = StartCoroutine(CreateResource());
+        buildingBehaviour = StartCoroutine("CreateResource");
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(buildingBehaviour);
     }
 
     private void OnMouseDown()
