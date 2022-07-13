@@ -1178,6 +1178,7 @@ GameObject:
   - component: {fileID: 516491931}
   - component: {fileID: 516491932}
   - component: {fileID: 516491933}
+  - component: {fileID: 516491934}
   m_Layer: 0
   m_Name: _Manager
   m_TagString: Untagged
@@ -1250,11 +1251,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548f92298efcb3d46aea3d2c103322f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWood: 1000
-  maxStone: 1000
-  maxPremiumCurrency: 1000
-  maxStandardCurrency: 1000
+  maxWood: 200
+  maxStone: 200
+  maxPremiumCurrency: 500
+  maxStandardCurrency: 500
   debugValue: 0
+--- !u!114 &516491934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516491929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc9266ab65d262a4d8bd05fcfa55930a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woodUI:
+    slider: {fileID: 2144245551}
+    maxValue: {fileID: 272314133}
+    currentValue: {fileID: 1891560186}
+  stoneUI:
+    slider: {fileID: 1890256085}
+    maxValue: {fileID: 452083601}
+    currentValue: {fileID: 1241114712}
+  standardCUI:
+    slider: {fileID: 1912071398}
+    maxValue: {fileID: 859950300}
+    currentValue: {fileID: 347095529}
+  premiumCUI:
+    slider: {fileID: 2038768439}
+    maxValue: {fileID: 529302671}
+    currentValue: {fileID: 370713834}
 --- !u!1 &529302669
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,7 +3076,7 @@ GameObject:
   - component: {fileID: 2057316892}
   - component: {fileID: 2057316891}
   m_Layer: 5
-  m_Name: CurrencyContainer (1)
+  m_Name: ButtonContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2063375475399668579}
   - component: {fileID: 8290738653282811454}
+  - component: {fileID: 1833207673437959079}
   m_Layer: 0
   m_Name: house2x1_01
   m_TagString: Untagged
@@ -50,7 +51,23 @@ MonoBehaviour:
     width: 2
     length: 1
     buildingModel: {fileID: 2063375475399668576}
-    resourceType: 0
+    resourceType: 2
+  resource: 0
+  resourceLimit: 100
+  generationSpeed: 5
+--- !u!65 &1833207673437959079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063375475399668576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 1.1, z: 1}
+  m_Center: {x: 0.5, y: 0.08, z: 0}
 --- !u!1001 &2063375477000754600
 PrefabInstance:
   m_ObjectHideFlags: 0
