@@ -29,6 +29,14 @@ public class ResourceManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        UIManager.Instance.UpdateWoodUI(wood, maxWood);
+        UIManager.Instance.UpdateStoneUI(stone, maxStone);
+        UIManager.Instance.UpdateStandardCUI(standardC, maxStandardCurrency);
+        UIManager.Instance.UpdatePremiumCUI(premiumC, maxPremiumCurrency);
+    }
+
     private void Update()
     {
         if (debugValue)
@@ -48,6 +56,7 @@ public class ResourceManager : MonoBehaviour
         wood = tmp;
 
         // TODO: update UI 
+        UIManager.Instance.UpdateWoodUI(wood, maxWood);
         return true;
     }
 
@@ -61,6 +70,7 @@ public class ResourceManager : MonoBehaviour
         stone = tmp;
 
         // TODO: update UI 
+        UIManager.Instance.UpdateStoneUI(stone, maxStone);
         return true;
     }
 
@@ -74,6 +84,7 @@ public class ResourceManager : MonoBehaviour
         standardC = tmp;
 
         // TODO: update UI 
+        UIManager.Instance.UpdateStandardCUI(standardC, maxStandardCurrency);
         return true;
     }
 
@@ -87,6 +98,7 @@ public class ResourceManager : MonoBehaviour
         premiumC = tmp;
 
         // TODO: update UI 
+        UIManager.Instance.UpdatePremiumCUI(premiumC, maxPremiumCurrency);
         return true;
     }
 

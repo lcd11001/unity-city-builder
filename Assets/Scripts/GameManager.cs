@@ -131,7 +131,9 @@ public class GameManager : MonoBehaviour
         spawnedObstacle.transform.position = new Vector3(xPos, tileEndHeight, zPos);
         spawnedObstacle.transform.SetParent(resourcesHolder);
 
-        return spawnedObstacle.GetComponent<ObstacleObject>();
+        ObstacleObject obstacle = spawnedObstacle.GetComponent<ObstacleObject>();
+        obstacle.data.obstacleType = isWood ? Obstacle.ObstacleType.Wood : Obstacle.ObstacleType.Rock;
+        return obstacle;
     }
 
     /// <summary>
