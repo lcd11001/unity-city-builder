@@ -6,7 +6,7 @@ using UnityEngine;
 public class Tile
 {
     // the building referrece
-    public Building buildingRef;
+    public BuildingObject buildingRef;
     // Tile is occupied by something (building, resource, ...)
     public ObstacleType obstacleType = ObstacleType.None;
 
@@ -27,7 +27,7 @@ public class Tile
         obstacleType = t;
     }
 
-    public void SetOccupied(ObstacleType t, Building b)
+    public void SetOccupied(ObstacleType t, BuildingObject b)
     {
         obstacleType = t;
         buildingRef = b;

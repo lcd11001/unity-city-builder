@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
         {
             for (int z = zPos; z < zPos + building.data.length; z++)
             {
-                tileGrid[x, z].data.SetOccupied(Tile.ObstacleType.Building, building.data);
+                tileGrid[x, z].data.SetOccupied(Tile.ObstacleType.Building, building);
             }
         }
     }
@@ -183,5 +183,10 @@ public class GameManager : MonoBehaviour
         spawnBuilding.transform.position = position;
 
         return spawnBuilding.GetComponent<BuildingObject>();
+    }
+
+    public void SelectBuilding(int id)
+    {
+        buildingToPlace = BuildingDatabase.Instance.buildingsDatabase.Find(building =>building.data.buildingID == id);
     }
 }

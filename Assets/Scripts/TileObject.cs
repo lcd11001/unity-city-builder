@@ -39,18 +39,21 @@ public class TileObject : MonoBehaviour
             Debug.Log("This tile is occupied by " + data.obstacleType);
             if (data.buildingRef != null)
             {
-                Debug.Log("   - Building " + data.buildingRef.buildingModel.gameObject.name);
+                Debug.Log("   - Building " + data.buildingRef.gameObject.name);
             }
         }
     }
 
     private bool CheckPlaceBuildingAvailable(BuildingObject building)
     {
+        int maxWidthIndex = GameManager.Instance.tileGrid.GetUpperBound(0);
+        int maxLengthIndex = GameManager.Instance.tileGrid.GetUpperBound(1);
+        // Debug.Log($"{maxWidthIndex}:{maxLengthIndex}");
         for (int x = xPos; x < xPos + building.data.width; x++)
         {
             for (int z = zPos; z < zPos + building.data.length; z++)
             {
-                if (GameManager.Instance.tileGrid[x, z].data.IsOccupied)
+                if (x > maxWidthIndex || z > maxLengthIndex || GameManager.Instance.tileGrid[x, z].data.IsOccupied)
                 {
                     return false;
                 }
