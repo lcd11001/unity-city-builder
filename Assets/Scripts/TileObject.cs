@@ -13,7 +13,7 @@ public class TileObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Clicked on " + gameObject.name);
+        // Debug.Log("Clicked on " + gameObject.name);
         if (!data.IsOccupied)
         {
             if (GameManager.Instance.buildingToPlace != null)

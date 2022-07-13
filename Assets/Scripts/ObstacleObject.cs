@@ -13,7 +13,7 @@ public class ObstacleObject : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        Debug.Log("clicked on " + gameObject.name);
+        // Debug.Log("clicked on " + gameObject.name);
         bool usedResource = false;
 
         // we can call directly the method that adds the resource
