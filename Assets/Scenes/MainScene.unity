@@ -1238,7 +1238,7 @@ MonoBehaviour:
   obstacleChance: 0.5
   xBounds: 4
   zBounds: 4
-  buildingToPlace: {fileID: 8290738653282811454, guid: 475becc26a2eb3248a76b69a80e4337b, type: 3}
+  buildingToPlace: {fileID: 1224000930870353375, guid: 66c82317174dcef47b83652e02036670, type: 3}
 --- !u!114 &516491933
 MonoBehaviour:
   m_ObjectHideFlags: 0

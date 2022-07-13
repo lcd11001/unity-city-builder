@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class BuildingObject : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class BuildingObject : MonoBehaviour
     // speed that the resource is generated
     public float generationSpeed = 5;
 
+    [Header("UI")]
+    [Space(8)]
+    public Canvas canvasUI;
+    public Slider progressSlider;
+    public TextMeshProUGUI resourceText;
+
     Coroutine buildingBehaviour;
 
     private void Start()
@@ -24,10 +32,13 @@ public class BuildingObject : MonoBehaviour
         if (data.resourceType != Building.ResourceType.None && data.resourceType != Building.ResourceType.Storage)
         {
             buildingBehaviour = StartCoroutine("CreateResource");
+
+            resourceText.text = data.resourceType.ToString();
         }
 
         if (data.resourceType == Building.ResourceType.Storage)
         {
+            canvasUI.gameObject.SetActive(false);
             IncreaseMaxStorage();
         }
     }
@@ -89,7 +100,15 @@ public class BuildingObject : MonoBehaviour
                 resource = resourceLimit;
             }
 
+            UpdateUI(resource, resourceLimit);
+
             yield return null;
         }
+    }
+
+    public void UpdateUI(float value, float max)
+    {
+        progressSlider.value = value;
+        progressSlider.maxValue = max;
     }
 }
