@@ -187,6 +187,13 @@ public class GameManager : MonoBehaviour
 
     public void SelectBuilding(int id)
     {
-        buildingToPlace = BuildingDatabase.Instance.buildingsDatabase.Find(building =>building.data.buildingID == id);
+        Building building = BuildingDatabase.Instance.buildingsDatabase.Find(building => building.buildingID == id);
+        if (building != null)
+        {
+            buildingToPlace = building.buildingModel.GetComponent<BuildingObject>();
+            
+            // fixed: buildingToPlace not correct as settings in database
+            buildingToPlace.data.Copy(building);
+        }
     }
 }

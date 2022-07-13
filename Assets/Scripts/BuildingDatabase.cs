@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingDatabase : MonoBehaviour
 {
-    public List<BuildingObject> buildingsDatabase = new List<BuildingObject>();
+    public List<Building> buildingsDatabase = new List<Building>();
 
     public static BuildingDatabase Instance;
 

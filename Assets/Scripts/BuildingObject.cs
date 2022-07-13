@@ -8,17 +8,6 @@ public class BuildingObject : MonoBehaviour
 {
     public Building data;
 
-    [Header("Resource generation")]
-    [Space(8)]
-    // this will be the resource that has been created by this building
-    public float resource = 0;
-
-    // limit that this building can generate or do
-    public float resourceLimit = 100;
-
-    // speed that the resource is generated
-    public float generationSpeed = 5;
-
     [Header("UI")]
     [Space(8)]
     public Canvas canvasUI;
@@ -45,7 +34,10 @@ public class BuildingObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        StopCoroutine(buildingBehaviour);
+        if (buildingBehaviour != null)
+        {
+            StopCoroutine(buildingBehaviour);
+        }
     }
 
     private void OnMouseDown()
@@ -55,10 +47,10 @@ public class BuildingObject : MonoBehaviour
         switch (data.resourceType)
         {
             case Building.ResourceType.Standard:
-                usedResource = ResourceManager.Instance.AddStandardC((int)resource);
+                usedResource = ResourceManager.Instance.AddStandardC((int)data.resource);
                 break;
             case Building.ResourceType.Premium:
-                usedResource = ResourceManager.Instance.AddPremiumC((int)resource);
+                usedResource = ResourceManager.Instance.AddPremiumC((int)data.resource);
                 break;
         }
 
@@ -70,7 +62,7 @@ public class BuildingObject : MonoBehaviour
 
     void EmptyResource()
     {
-        resource = 0;
+        data.resource = 0;
     }
 
     void IncreaseMaxStorage()
@@ -78,10 +70,10 @@ public class BuildingObject : MonoBehaviour
         switch (data.storageType)
         {
             case Building.StorageType.Wood:
-                ResourceManager.Instance.IncreaseMaxWood((int)resourceLimit);
+                ResourceManager.Instance.IncreaseMaxWood((int)data.resourceLimit);
                 break;
             case Building.StorageType.Stone:
-                ResourceManager.Instance.IncreaseMaxStone((int)resourceLimit);
+                ResourceManager.Instance.IncreaseMaxStone((int)data.resourceLimit);
                 break;
         }
     }
@@ -91,16 +83,16 @@ public class BuildingObject : MonoBehaviour
         // It will create resource infinitely
         while (true)
         {
-            if (resource < resourceLimit)
+            if (data.resource < data.resourceLimit)
             {
-                resource += generationSpeed * Time.deltaTime;
+                data.resource += data.generationSpeed * Time.deltaTime;
             }
             else
             {
-                resource = resourceLimit;
+                data.resource = data.resourceLimit;
             }
 
-            UpdateUI(resource, resourceLimit);
+            UpdateUI(data.resource, data.resourceLimit);
 
             yield return null;
         }

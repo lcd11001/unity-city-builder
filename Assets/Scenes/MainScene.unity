@@ -1329,9 +1329,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingsDatabase:
-  - {fileID: 1224000930870353375, guid: 66c82317174dcef47b83652e02036670, type: 3}
-  - {fileID: -7230577250901345035, guid: bd58e64c6f4d3fd4a96778288045c71b, type: 3}
-  - {fileID: 8290738653282811454, guid: 475becc26a2eb3248a76b69a80e4337b, type: 3}
+  - buildingID: 1
+    width: 1
+    length: 1
+    buildingModel: {fileID: 409122943680310549, guid: 66c82317174dcef47b83652e02036670, type: 3}
+    resourceType: 1
+    storageType: 0
+    resource: 0
+    resourceLimit: 100
+    generationSpeed: 5
+  - buildingID: 2
+    width: 1
+    length: 1
+    buildingModel: {fileID: 6088496938533487740, guid: bd58e64c6f4d3fd4a96778288045c71b, type: 3}
+    resourceType: 3
+    storageType: 1
+    resource: 0
+    resourceLimit: 200
+    generationSpeed: 5
+  - buildingID: 3
+    width: 2
+    length: 1
+    buildingModel: {fileID: 2063375475399668576, guid: 475becc26a2eb3248a76b69a80e4337b, type: 3}
+    resourceType: 2
+    storageType: 0
+    resource: 0
+    resourceLimit: 100
+    generationSpeed: 2
 --- !u!114 &516491932
 MonoBehaviour:
   m_ObjectHideFlags: 0

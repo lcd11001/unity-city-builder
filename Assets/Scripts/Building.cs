@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class Building
 {
+    [Header("Building Settings")]
+    [Space(8)]
     public int buildingID;
 
     // X-axis that will be used inside the grid
@@ -18,6 +20,17 @@ public class Building
     // type of functionality of the building
     public ResourceType resourceType = ResourceType.None;
     public StorageType storageType = StorageType.None;
+
+    [Header("Resource generation")]
+    [Space(8)]
+    // this will be the resource that has been created by this building
+    public float resource = 0;
+
+    // limit that this building can generate or do
+    public float resourceLimit = 100;
+
+    // speed that the resource is generated
+    public float generationSpeed = 5;
 
     public enum ResourceType
     {
@@ -33,4 +46,23 @@ public class Building
         Wood,
         Stone
     }
+
+    public void Clone(ref Building other)
+    {
+        other.resourceType = resourceType;
+        other.storageType = storageType;
+        other.resource = resource;
+        other.resourceLimit = resourceLimit;
+        other.generationSpeed = generationSpeed;
+    }
+
+    public void Copy(in Building other)
+    {
+        resourceType = other.resourceType;
+        storageType = other.storageType;
+        resource = other.resource;
+        resourceLimit = other.resourceLimit;
+        generationSpeed = other.generationSpeed;
+    }
+
 }
