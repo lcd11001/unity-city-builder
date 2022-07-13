@@ -21,7 +21,15 @@ public class BuildingObject : MonoBehaviour
 
     private void Start()
     {
-        buildingBehaviour = StartCoroutine("CreateResource");
+        if (data.resourceType != Building.ResourceType.None && data.resourceType != Building.ResourceType.Storage)
+        {
+            buildingBehaviour = StartCoroutine("CreateResource");
+        }
+
+        if (data.resourceType == Building.ResourceType.Storage)
+        {
+            IncreaseMaxStorage();
+        }
     }
 
     private void OnDestroy()
@@ -52,6 +60,19 @@ public class BuildingObject : MonoBehaviour
     void EmptyResource()
     {
         resource = 0;
+    }
+
+    void IncreaseMaxStorage()
+    {
+        switch (data.storageType)
+        {
+            case Building.StorageType.Wood:
+                ResourceManager.Instance.IncreaseMaxWood((int)resourceLimit);
+                break;
+            case Building.StorageType.Stone:
+                ResourceManager.Instance.IncreaseMaxStone((int)resourceLimit);
+                break;
+        }
     }
 
     IEnumerator CreateResource()

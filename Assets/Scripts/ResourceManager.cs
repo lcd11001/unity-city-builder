@@ -60,6 +60,12 @@ public class ResourceManager : MonoBehaviour
         return true;
     }
 
+    public void IncreaseMaxWood(int amount)
+    {
+        maxWood += amount;
+        UIManager.Instance.UpdateWoodUI(wood, maxWood);
+    }
+
     public bool AddStone(int amount)
     {
         int tmp = stone + amount;
@@ -72,6 +78,12 @@ public class ResourceManager : MonoBehaviour
         // TODO: update UI 
         UIManager.Instance.UpdateStoneUI(stone, maxStone);
         return true;
+    }
+
+    public void IncreaseMaxStone(int amount)
+    {
+        maxStone += amount;
+        UIManager.Instance.UpdateStoneUI(stone, maxStone);
     }
 
     public bool AddStandardC(int amount)
@@ -88,6 +100,12 @@ public class ResourceManager : MonoBehaviour
         return true;
     }
 
+    public void IncreaseMaxStandardCurrency(int amount)
+    {
+        maxStandardCurrency += amount;
+        UIManager.Instance.UpdateStandardCUI(standardC, maxStandardCurrency);
+    }
+
     public bool AddPremiumC(int amount)
     {
         int tmp = premiumC + amount;
@@ -100,6 +118,12 @@ public class ResourceManager : MonoBehaviour
         // TODO: update UI 
         UIManager.Instance.UpdatePremiumCUI(premiumC, maxPremiumCurrency);
         return true;
+    }
+
+    public void IncreaseMaxPremiumCurrency(int amount)
+    {
+        maxPremiumCurrency += amount;
+        UIManager.Instance.UpdatePremiumCUI(premiumC, maxPremiumCurrency);
     }
 
     private void DebugValue()

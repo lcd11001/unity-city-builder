@@ -51,7 +51,8 @@ MonoBehaviour:
     width: 2
     length: 1
     buildingModel: {fileID: 2063375475399668576}
-    resourceType: 2
+    resourceType: 3
+    storageType: 1
   resource: 0
   resourceLimit: 100
   generationSpeed: 5
