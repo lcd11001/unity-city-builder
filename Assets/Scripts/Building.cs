@@ -49,6 +49,9 @@ public class Building
 
     public void Clone(ref Building other)
     {
+        other.buildingID = buildingID;
+        other.width = width;
+        other.length = length;
         other.resourceType = resourceType;
         other.storageType = storageType;
         other.resource = resource;
@@ -58,6 +61,9 @@ public class Building
 
     public void Copy(in Building other)
     {
+        buildingID = other.buildingID;
+        width = other.width;
+        length = other.length;
         resourceType = other.resourceType;
         storageType = other.storageType;
         resource = other.resource;

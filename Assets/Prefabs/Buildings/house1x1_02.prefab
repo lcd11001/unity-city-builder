@@ -577,15 +577,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    buildingID: 2
-    width: 1
-    length: 1
+    buildingID: 0
+    width: 0
+    length: 0
     buildingModel: {fileID: 6088496938533487740}
-    resourceType: 1
+    resourceType: 0
     storageType: 0
-  resource: 0
-  resourceLimit: 100
-  generationSpeed: 5
+    resource: 0
+    resourceLimit: 0
+    generationSpeed: 0
   canvasUI: {fileID: 2480302632314859176}
   progressSlider: {fileID: 3948414644482101683}
   resourceText: {fileID: 1065885178230651961}
