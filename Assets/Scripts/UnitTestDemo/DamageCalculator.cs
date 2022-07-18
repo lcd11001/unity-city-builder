@@ -12,5 +12,12 @@ namespace UnitTestDemo
             // return Convert.ToInt32(amount * mitigationPercent);
             return Convert.ToInt32(amount * (1.0f - mitigationPercent));
         }
+
+        public static int CalculatorDamage(int amount, Character character)
+        {
+            int totalArmor = character.Inventory.GetTotalArmor();
+            float mitigationPercent = totalArmor / 100f;
+            return CalculatorDamage(amount, mitigationPercent);
+        }
     }
 }

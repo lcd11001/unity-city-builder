@@ -30,7 +30,7 @@ namespace UnitTestDemo
             return null;
         }
 
-        public float GetTotalArmor()
+        public int GetTotalArmor()
         {
             return _equippedItems.Values.Sum(t => t.Armor);
         }
