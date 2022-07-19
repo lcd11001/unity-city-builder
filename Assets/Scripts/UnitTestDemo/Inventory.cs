@@ -9,6 +9,14 @@ namespace UnitTestDemo
     {
         Dictionary<EquipSlots, Item> _equippedItems = new Dictionary<EquipSlots, Item>();
         List<Item> _unequippedItems = new List<Item>();
+        
+        // readonly means we only assign value in constructor
+        private readonly ICharacter _character;
+
+        public Inventory(ICharacter character)
+        {
+            _character = character;
+        }
 
         public void EquipItem(Item item)
         {
@@ -18,6 +26,8 @@ namespace UnitTestDemo
             }
 
             _equippedItems[item.EquipSlot] = item;
+
+            _character?.OnItemEquipped(item);
         }
 
         public Item GetItem(EquipSlots slot)

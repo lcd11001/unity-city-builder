@@ -11,7 +11,7 @@ public class test_inventory
     public void only_allows_one_chest_to_be_equipped_at_a_time()
     {
         // ARRANGE
-        Inventory inventory = new Inventory();
+        Inventory inventory = new Inventory(null);
         Item item1 = new Item() { EquipSlot = EquipSlots.Chest };
         Item item2 = new Item() { EquipSlot = EquipSlots.Chest };
 

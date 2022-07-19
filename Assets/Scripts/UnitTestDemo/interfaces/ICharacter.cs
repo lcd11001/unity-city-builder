@@ -1,3 +1,5 @@
+using System;
+
 namespace UnitTestDemo
 {
     public interface ICharacter
@@ -5,5 +7,6 @@ namespace UnitTestDemo
         Inventory Inventory { get; }
         int Health { get; }
         int Level { get; }
+        void OnItemEquipped (Item item);
     }
 }
