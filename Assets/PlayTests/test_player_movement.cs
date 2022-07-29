@@ -22,22 +22,22 @@ public class test_player_movement
         var so = new SerializedObject(player);
         so.FindProperty("moveSpeed").floatValue = 1f;
         so.ApplyModifiedProperties();
-        
+
         // Assume we press up arrow
         player.PlayerInput = Substitute.For<IInput>();
         player.PlayerInput.Vertical.Returns(1f);
-        
+
 
         // display of player
         var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cube.transform.SetParent(go.transform);
         cube.transform.localPosition = Vector3.zero;
-        
+
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(10f);
 
-        Assert.IsTrue(player.transform.position.z > 0f);
+        Assert.AreEqual(player.transform.position.z, 10f, 0.5f);
         Assert.AreEqual(player.transform.position.x, 0f);
         Assert.AreEqual(player.transform.position.y, 0f);
     }

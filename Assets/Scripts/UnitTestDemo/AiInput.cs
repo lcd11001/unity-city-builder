@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace UnitTestDemo
 {
-    public class PlayerInput : MonoBehaviour, IInput
+    public class AiInput : MonoBehaviour, IInput
     {
-        public float Vertical => Input.GetAxis("Vertical");
+        public float Vertical => 1.0f;
 
         public bool IsActive => this.enabled;
 

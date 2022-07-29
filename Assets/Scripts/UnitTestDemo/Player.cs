@@ -12,22 +12,42 @@ namespace UnitTestDemo
 
         [SerializeField]
         private float moveSpeed;
+        [SerializeField]
+        private float moveTime;
+        [SerializeField]
+        private bool useMoveTime;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.useGravity = false;
 
-            PlayerInput = GetComponent<IInput>();
+            var inputs = GetComponents<IInput>();
+            foreach(var input in inputs)
+            {
+                if (input.IsActive)
+                {
+                    PlayerInput = input;
+                    Debug.Log($"PlayerInput {PlayerInput.GetType().Name}");
+                }
+            }
         }
 
         public IInput PlayerInput { get; set; }
 
         private void Update()
         {
-            float vertical = PlayerInput.Vertical;
-            // _rigidbody.AddForce(0, 0, vertical * moveSpeed);
-            _rigidbody.velocity = new Vector3(0, 0, vertical * moveSpeed);
+            if (!useMoveTime || moveTime > 0)
+            {
+                moveTime -= Time.deltaTime;
+                float vertical = PlayerInput.Vertical;
+                // _rigidbody.AddForce(0, 0, vertical * moveSpeed);
+                _rigidbody.velocity = new Vector3(0, 0, vertical * moveSpeed);
+            }
+            else
+            {
+                _rigidbody.velocity = Vector3.zero;
+            }
         }
     }
 }
