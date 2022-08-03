@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bf1370e1c86a649bdce680bb7a1b87, type: 3}
+  m_Name: SO_MapConfig
+  m_EditorClassIdentifier: 
+  width: 15
+  height: 15
+  depth: 3
+  groundMaterial: {fileID: 2100000, guid: 6f8470dab5235bc4eb295e8be7565444, type: 2}
+  planeMaterial: {fileID: 2100000, guid: 0e0bb72ca40607e4c8c09cbc92afd37f, type: 2}

@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void HandleMouseUp()
     {
-        Debug.Log($"HandleMouseUp");
+        // Debug.Log($"HandleMouseUp");
     }
 
     private void HandleMouseHold(Vector3Int position)
     {
-        Debug.Log($"HandleMouseHold {position}");
+        // Debug.Log($"HandleMouseHold {position}");
     }
 
     private void HandleMouseClick(Vector3Int position)
