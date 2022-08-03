@@ -1747,7 +1747,7 @@ Transform:
   m_GameObject: {fileID: 185400025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 1, z: 3}
+  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 970204964}
@@ -1765,6 +1765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9bd2d59d834b4841942f586f957eb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapConfig: {fileID: 11400000, guid: 70ea3161258a8aa45a2ef01dd23d498b, type: 2}
 --- !u!1001 &198101604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11193,7 +11194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970204963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 14.5}
+  m_LocalPosition: {x: 7, y: 0, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11216,8 +11217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapConfig: {fileID: 11400000, guid: 70ea3161258a8aa45a2ef01dd23d498b, type: 2}
-  mapGround: {fileID: 1874407668}
-  mapPlane: {fileID: 185400030}
 --- !u!1001 &974467084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23691,7 +23690,7 @@ Transform:
   m_GameObject: {fileID: 1874407663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.51, z: 0}
-  m_LocalScale: {x: 25, y: 3, z: 30}
+  m_LocalScale: {x: 15, y: 3, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 970204964}
@@ -23709,6 +23708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bcc1d769d46f54ba2d85d18672796e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapConfig: {fileID: 11400000, guid: 70ea3161258a8aa45a2ef01dd23d498b, type: 2}
 --- !u!1001 &1882545449
 PrefabInstance:
   m_ObjectHideFlags: 0
