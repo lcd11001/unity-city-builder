@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public CameraMovement cameraMovement;
     public BaseInputManager inputManager;
+    public RoadManager roadManager;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     private void HandleMouseClick(Vector3Int position)
     {
         Debug.Log($"HandleMouseClick {position}");
+        roadManager.PlaceRoad(position);
     }
 
     private void Update()
