@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : BaseInputManager
+public class InputDragManager : BaseInputManager
 {
     [SerializeField] Camera mainCamera;
 
     public LayerMask groundMask;
+
+    private bool isHolding = false;
+    private Vector3Int startPosition, endPosition;
 
     private void Update()
     {
@@ -33,7 +36,15 @@ public class InputManager : BaseInputManager
 
     public override void CheckArrowInput()
     {
-        cameraMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        if (isHolding)
+        {
+            Vector3Int dragDelta = (endPosition - startPosition);
+            cameraMovementVector = new Vector2(-dragDelta.x, -dragDelta.z);
+        }
+        else
+        {
+            cameraMovementVector = Vector2.zero;
+        }
     }
 
     public override void CheckClickHoldEvent()
@@ -43,6 +54,9 @@ public class InputManager : BaseInputManager
             var position = RaycastGround();
             if (position != null)
             {
+                isHolding = true;
+                endPosition = position.Value;
+
                 OnMouseHold?.Invoke(position.Value);
             }
         }
@@ -52,6 +66,8 @@ public class InputManager : BaseInputManager
     {
         if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject() == false)
         {
+            isHolding = false;
+
             OnMouseUp?.Invoke();
         }
     }
@@ -63,6 +79,9 @@ public class InputManager : BaseInputManager
             var position = RaycastGround();
             if (position != null)
             {
+                isHolding = false;
+                startPosition = position.Value;
+
                 OnMouseClick?.Invoke(position.Value);
             }
         }
