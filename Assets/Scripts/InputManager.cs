@@ -10,14 +10,6 @@ public class InputManager : BaseInputManager
 
     public LayerMask groundMask;
 
-    private void Update()
-    {
-        CheckClickDownEvent();
-        CheckClickUpEvent();
-        CheckClickHoldEvent();
-        CheckArrowInput();
-    }
-
     private Vector3Int? RaycastGround()
     {
         RaycastHit hit;

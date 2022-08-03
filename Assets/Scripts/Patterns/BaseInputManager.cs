@@ -13,4 +13,12 @@ public abstract class BaseInputManager : MonoBehaviour, IInput
     public abstract void CheckClickDownEvent();
     public abstract void CheckClickHoldEvent();
     public abstract void CheckClickUpEvent();
+
+    private void Update()
+    {
+        CheckClickDownEvent();
+        CheckClickUpEvent();
+        CheckClickHoldEvent();
+        CheckArrowInput();
+    }
 }

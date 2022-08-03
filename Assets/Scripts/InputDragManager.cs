@@ -13,14 +13,6 @@ public class InputDragManager : BaseInputManager
     private bool isHolding = false;
     private Vector3Int startPosition, endPosition;
 
-    private void Update()
-    {
-        CheckClickDownEvent();
-        CheckClickUpEvent();
-        CheckClickHoldEvent();
-        CheckArrowInput();
-    }
-
     private Vector3Int? RaycastGround()
     {
         RaycastHit hit;
