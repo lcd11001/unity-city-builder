@@ -12,6 +12,7 @@ public class PlacementManager : MonoBehaviour
     Grid placementGrid;
 
     private Dictionary<Vector3Int, StructureModel> tempStructureObjects = new Dictionary<Vector3Int, StructureModel>();
+    private Dictionary<Vector3Int, StructureModel> structureObjects = new Dictionary<Vector3Int, StructureModel>();
 
     private void Start()
     {
@@ -77,5 +78,36 @@ public class PlacementManager : MonoBehaviour
         {
             tempStructureObjects[position].SwapModel(newModel, rotation);
         }
+        else if (structureObjects.ContainsKey(position))
+        {
+            structureObjects[position].SwapModel(newModel, rotation);
+        }
+    }
+
+    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)
+    {
+        var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z));
+        return resultPath.Select(point => new Vector3Int(point.X, 0, point.Y)).ToList();
+    }
+
+    public void RemoveAllTemporaryStructures()
+    {
+        foreach (var obj in tempStructureObjects)
+        {
+            var position = obj.Key;
+            var structure = obj.Value;
+            placementGrid[position.x, position.z] = CellType.Empty;
+            Destroy(structure.gameObject);
+        }
+        tempStructureObjects.Clear();
+    }
+
+    public void SaveTemporaryStructures()
+    {
+        foreach (var obj in tempStructureObjects)
+        {
+            structureObjects.Add(obj.Key, obj.Value);
+        }
+        tempStructureObjects.Clear();
     }
 }

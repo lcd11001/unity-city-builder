@@ -20,11 +20,13 @@ public class GameManager : MonoBehaviour
     private void HandleMouseUp()
     {
         // Debug.Log($"HandleMouseUp");
+        roadManager.FinishPlacingRoad();
     }
 
     private void HandleMouseHold(Vector3Int position)
     {
         // Debug.Log($"HandleMouseHold {position}");
+        roadManager.PlaceRoad(position);
     }
 
     private void HandleMouseClick(Vector3Int position)
