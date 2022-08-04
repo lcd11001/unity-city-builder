@@ -8,10 +8,11 @@ namespace CityBuilder.Map
     [RequireComponent(typeof(MeshRenderer))]
     public class Ground : MonoBehaviour
     {
-        [SerializeField] SO_MapConfig mapConfig;
+        SO_MapConfig mapConfig;
 
         private void OnValidate()
         {
+            mapConfig = FindObjectOfType<MapConfig>().Instance;
             ConfigGround();
         }
 
