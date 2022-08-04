@@ -73,9 +73,31 @@ public class PlacementManager : MonoBehaviour
     public void PlaceTemporaryStructure(Vector3Int position, GameObject structurePrefab, CellType type)
     {
         placementGrid[position.x, position.z] = type;
-        // GameObject newStructure = Instantiate(structurePrefab, position, Quaternion.identity);
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
         tempStructureObjects.Add(position, structure);
+    }
+
+    public void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type)
+    {
+        placementGrid[position.x, position.z] = type;
+        StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+        structureObjects.Add(position, structure);
+
+        DestroyNatureAt(position);
+    }
+
+    private void DestroyNatureAt(Vector3Int position)
+    {
+        Vector3 centerBox = position + new Vector3(0, 0.5f, 0);
+        Vector3 halfExtents = new Vector3(0.5f, 0.5f, 0.5f);
+        Vector3 direction = transform.up;
+
+        RaycastHit[] hits = Physics.BoxCastAll(centerBox, halfExtents, direction, Quaternion.identity, Mathf.Infinity, 1 << LayerMask.NameToLayer("Nature"));
+
+        foreach (var item in hits)
+        {
+            Destroy(item.collider.gameObject);
+        }
     }
 
     public List<Vector3Int> GetNeighbourOfTypeFor(Vector3Int position, CellType type)
@@ -132,6 +154,7 @@ public class PlacementManager : MonoBehaviour
         foreach (var obj in tempStructureObjects)
         {
             structureObjects.Add(obj.Key, obj.Value);
+            DestroyNatureAt(obj.Key);
         }
         tempStructureObjects.Clear();
     }

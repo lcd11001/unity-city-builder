@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public CameraMovement cameraMovement;
     public BaseInputManager inputManager;
     public RoadManager roadManager;
+    public StructureManager structureManager;
     public UIManager uiManager;
 
     private void Start()
@@ -21,11 +22,15 @@ public class GameManager : MonoBehaviour
     private void SpecialPlacementHandler()
     {
         ClearInputAction();
+
+        inputManager.OnMouseClick += structureManager.PlaceSpecial;
     }
 
     private void HousePlacementHandler()
     {
         ClearInputAction();
+
+        inputManager.OnMouseClick += structureManager.PlaceHouse;
     }
 
     private void RoadPlacementHandler()

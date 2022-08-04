@@ -28,8 +28,18 @@ public class StructureManager : MonoBehaviour
         int randomIndex = GetRandomWeightIndex(housesWeight);
         placementManager.PlaceObjectOnTheMap(position, housesPrefab[randomIndex].prefab, CellType.Structure);
         AudioPlayer.instance.PlayPlacementSound();
+    }
 
+    public void PlaceSpecial(Vector3Int position)
+    {
+        if (placementManager.CheckPositionBeforePlacement(position, CellType.Road) == false)
+        {
+            return;
+        }
 
+        int randomIndex = GetRandomWeightIndex(specialsWeight);
+        placementManager.PlaceObjectOnTheMap(position, specialsPrefab[randomIndex].prefab, CellType.SpecialStructure);
+        AudioPlayer.instance.PlayPlacementSound();
     }
 
     private int GetRandomWeightIndex(float[] weights)
@@ -37,17 +47,28 @@ public class StructureManager : MonoBehaviour
         float sum = weights.Sum();
         float randomValue = UnityEngine.Random.Range(0, sum);
         float tempSum = 0;
+        float nearestValue = sum;
+        int nearestIndex = 0;
+
         for (int i = 0; i < weights.Length; i++)
         {
             // 0 -> weights[0]
             // weights[0] -> weights[0] + weights[1]
             if (tempSum <= randomValue && randomValue < tempSum + weights[i])
             {
+                // found randomIndex;
                 return i;
+            }
+            if (randomValue - weights[i] < nearestValue)
+            {
+                nearestValue = randomValue - weights[i];
+                nearestIndex = i;
             }
             tempSum += weights[i];
         }
-        return 0;
+
+        //  incase we didn't find randomIndex;
+        return nearestIndex;
     }
 }
 
