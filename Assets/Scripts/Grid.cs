@@ -192,20 +192,28 @@ public class Grid
         CellType[] neighbours = { CellType.None, CellType.None, CellType.None, CellType.None };
         if (x > 0)
         {
-            neighbours[0] = _grid[x - 1, y];
+            neighbours[Dir.LEFT] = _grid[x - 1, y];
         }
         if (x < _width - 1)
         {
-            neighbours[2] = _grid[x + 1, y];
+            neighbours[Dir.RIGHT] = _grid[x + 1, y];
         }
         if (y > 0)
         {
-            neighbours[3] = _grid[x, y - 1];
+            neighbours[Dir.DOWN] = _grid[x, y - 1];
         }
         if (y < _height - 1)
         {
-            neighbours[1] = _grid[x, y + 1];
+            neighbours[Dir.TOP] = _grid[x, y + 1];
         }
         return neighbours;
     }
+}
+
+public class Dir
+{
+    public const int LEFT = 0;
+    public const int TOP = 1;
+    public const int RIGHT = 2;
+    public const int DOWN = 3;
 }

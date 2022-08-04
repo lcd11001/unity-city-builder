@@ -1046,6 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 101447171}
   - component: {fileID: 101447170}
+  - component: {fileID: 101447172}
   m_Layer: 0
   m_Name: RoadManager
   m_TagString: Untagged
@@ -1084,6 +1085,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &101447172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101447169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75cf434f68063494eae86d2be7285afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadEnd: {fileID: 1120765361980748800, guid: 126bc1b54aa974c45b523eabbb58d51e, type: 3}
+  roadStraight: {fileID: 5661862354351878554, guid: 0cf01c743836d154eb47042e1bc62afd,
+    type: 3}
+  corner: {fileID: 7077802812573144028, guid: fd4c97eb7b86f1149a7745204ed8904e, type: 3}
+  threeWay: {fileID: 2384947387477557946, guid: 2524a8437a2d4394da7f7a0546a71f3d,
+    type: 3}
+  fourWay: {fileID: 3351635067702010651, guid: f4402828bce58b54791119f89fa2df61, type: 3}
 --- !u!1001 &104542454
 PrefabInstance:
   m_ObjectHideFlags: 0
