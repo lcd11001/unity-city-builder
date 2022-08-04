@@ -1,24 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using CityBuilder.Map;
 using CityBuilder.SO;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
-    [SerializeField] SO_MapConfig mapConfig;
+    SO_MapConfig mapConfig;
     Grid placementGrid;
 
     private Dictionary<Vector3Int, StructureModel> tempStructureObjects = new Dictionary<Vector3Int, StructureModel>();
 
     private void Start()
     {
+        mapConfig = FindObjectOfType<MapConfig>().Instance;
         placementGrid = new Grid(mapConfig.width, mapConfig.height);
     }
 
-    public CellType[] GetNeighbourTypesFor(Vector3Int position)
+    public CellType[] GetNeighbourAllTypesFor(Vector3Int position)
     {
-        return placementGrid.GetAllAdjacentCellTypes(position.x, position.y);
+        return placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }
 
     public bool CheckIfPositionInBound(Vector3Int position)
@@ -47,6 +50,13 @@ public class PlacementManager : MonoBehaviour
         // GameObject newStructure = Instantiate(structurePrefab, position, Quaternion.identity);
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
         tempStructureObjects.Add(position, structure);
+    }
+
+    public List<Vector3Int> GetNeighbourOfTypeFor(Vector3Int position, CellType type)
+    {
+        var result = placementGrid.GetAdjacentCellsOfType(position.x, position.z, type);
+        // convert a list of objects from one type to another using lambda expression 
+        return result.Select(point => new Vector3Int(point.X, 0, point.Y)).ToList();
     }
 
     private StructureModel CreateNewStructureModel(Vector3Int position, GameObject structurePrefab, CellType type)

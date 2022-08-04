@@ -11,7 +11,7 @@ public class RoadFixer : MonoBehaviour
     public void FixRoadAtPosition(PlacementManager placementManager, Vector3Int position)
     {
         // [Left, Top, Right, Down]
-        var result = placementManager.GetNeighbourTypesFor(position);
+        var result = placementManager.GetNeighbourAllTypesFor(position);
         int roadCount = result.Where(x => x == CellType.Road).Count();
         if (roadCount == 0 || roadCount == 1)
         {
