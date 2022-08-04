@@ -24,13 +24,7 @@ public class RoadManager : MonoBehaviour
 
     public void PlaceRoad(Vector3Int position)
     {
-        if (placementManager.CheckIfPositionInBound(position) == false)
-        {
-            // out side the grid, not the Unity map
-            return;
-        }
-
-        if (placementManager.CheckIfPositionIsFree(position) == false)
+        if (placementManager.CheckPositionBeforePlacement(position, CellType.Empty) == false)
         {
             return;
         }

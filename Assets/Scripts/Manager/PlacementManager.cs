@@ -25,6 +25,31 @@ public class PlacementManager : MonoBehaviour
         return placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }
 
+    public bool CheckPositionBeforePlacement(Vector3Int position, CellType neightbourType)
+    {
+        if (CheckIfPositionInBound(position) == false)
+        {
+            // out side the grid, not the Unity map
+            Debug.Log($"this position {position.x}:{position.z} is out of bound");
+            return false;
+        }
+
+        if (CheckIfPositionIsFree(position) == false)
+        {
+            // Debug.Log($"this position {position.x}:{position.z} is not empty");
+            return false;
+        }
+
+        var neightbours = GetNeighbourOfTypeFor(position, neightbourType);
+        if (neightbours.Count <= 0)
+        {
+            Debug.Log($"must be placed near a {neightbourType}");
+            return false;
+        }
+
+        return true;
+    }
+
     public bool CheckIfPositionInBound(Vector3Int position)
     {
         if (position.x >= 0 && position.x < mapConfig.width && position.z >= 0 && position.z < mapConfig.height)
