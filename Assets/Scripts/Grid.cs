@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Source https://github.com/lordjesus/Packt-Introduction-to-graph-algorithms-for-game-developers
@@ -66,6 +66,8 @@ public class Grid
 
     private List<Point> _roadList = new List<Point>();
     private List<Point> _specialStructure = new List<Point>();
+    private List<Point> _houseStructure = new List<Point>();
+    private List<Point> _bigStructure = new List<Point>();
 
     public Grid(int width, int height)
     {
@@ -87,18 +89,22 @@ public class Grid
             {
                 _roadList.Add(new Point(i, j));
             }
-            else
+
+            if (value == CellType.Structure)
             {
-                _roadList.Remove(new Point(i, j));
+                _houseStructure.Add(new Point(i, j));
             }
+            
             if (value == CellType.SpecialStructure)
             {
                 _specialStructure.Add(new Point(i, j));
             }
-            else
+
+            if (value == CellType.BigStructure)
             {
-                _specialStructure.Remove(new Point(i, j));
+                _bigStructure.Add(new Point(i, j));
             }
+            
             _grid[i, j] = value;
         }
     }
@@ -114,14 +120,61 @@ public class Grid
 
     public Point GetRandomRoadPoint()
     {
-        Random rand = new Random();
-        return _roadList[rand.Next(0, _roadList.Count - 1)];
+        if (_roadList.Count == 0)
+        {
+            return null;
+        }
+        return _roadList[Random.Range(0, _roadList.Count)];
     }
 
     public Point GetRandomSpecialStructurePoint()
     {
-        Random rand = new Random();
-        return _roadList[rand.Next(0, _roadList.Count - 1)];
+        if (_specialStructure.Count == 0)
+        {
+            return null;
+        }
+
+        return _specialStructure[Random.Range(0, _specialStructure.Count)];
+    }
+
+    public Point GetRandomHouseStructurePoint()
+    {
+        if (_houseStructure.Count == 0)
+        {
+            return null;
+        }
+
+        return _houseStructure[Random.Range(0, _houseStructure.Count)];
+    }
+
+    public Point GetRandomBigStructurePoint()
+    {
+        if (_bigStructure.Count == 0)
+        {
+            return null;
+        }
+
+        return _bigStructure[Random.Range(0, _bigStructure.Count)];
+    }
+
+    public List<Point> GetAllRoadFromGrid()
+    {
+        return _roadList;
+    }
+
+    public List<Point> GetAllHouseStructuresFromGrid()
+    {
+        return _houseStructure;
+    }
+
+    public List<Point> GetAllSpecialStructuresFromGrid()
+    {
+        return _specialStructure;
+    }
+
+    public List<Point> GetAllBigStructuresFromGrid()
+    {
+        return _bigStructure;
     }
 
     public List<Point> GetAdjacentCells(Point cell, bool isAgent)

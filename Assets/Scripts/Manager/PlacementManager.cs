@@ -68,7 +68,7 @@ public class PlacementManager : MonoBehaviour
         var neighbours = GetNeighbourOfTypeFor(position, neighbourType);
         if (neighbours.Count <= 0)
         {
-            Debug.Log($"must be placed near a {neighbourType}");
+            // Debug.Log($"must be placed near a {neighbourType}");
             return false;
         }
         return true;
@@ -79,13 +79,13 @@ public class PlacementManager : MonoBehaviour
         if (CheckIfPositionInBound(position) == false)
         {
             // out side the grid, not the Unity map
-            Debug.Log($"this position {position.x}:{position.z} is out of bound");
+            // Debug.Log($"this position {position.x}:{position.z} is out of bound");
             return false;
         }
 
         if (CheckIfPositionIsFree(position) == false)
         {
-            Debug.Log($"this position {position.x}:{position.z} is not empty");
+            // Debug.Log($"this position {position.x}:{position.z} is not empty");
             return false;
         }
         return true;
@@ -215,5 +215,79 @@ public class PlacementManager : MonoBehaviour
             DestroyNatureAt(obj.Key);
         }
         tempStructureObjects.Clear();
+    }
+
+    private StructureModel GetStructureAt(Point point)
+    {
+        if (point == null)
+        {
+            return null;
+        }
+        return GetStructureAt(new Vector3Int(point.X, 0, point.Y));
+    }
+
+    public StructureModel GetStructureAt(Vector3Int position)
+    {
+        if (structureObjects.ContainsKey(position))
+        {
+            return structureObjects[position];
+        }
+        return null;
+    }
+
+    public List<StructureModel> GetAllRoad()
+    {
+        return placementGrid.GetAllRoadFromGrid()
+            .Select(point => GetStructureAt(point))
+            .Where(structure => structure != null)
+            .ToList();
+    }
+
+    public List<StructureModel> GetAllSpecialStructure()
+    {
+        return placementGrid.GetAllSpecialStructuresFromGrid()
+            .Select(point => GetStructureAt(point))
+            .Where(structure => structure != null)
+            .ToList();
+    }
+
+    public List<StructureModel> GetAllHouseStructure()
+    {
+        return placementGrid.GetAllHouseStructuresFromGrid()
+            .Select(point => GetStructureAt(point))
+            .Where(structure => structure != null)
+            .ToList();
+    }
+
+    public List<StructureModel> GetAllBigStructure()
+    {
+        return placementGrid.GetAllBigStructuresFromGrid()
+            .Select(point => GetStructureAt(point))
+            .Where(structure => structure != null)
+            .ToList();
+    }
+
+    public StructureModel GetRandomHouseStructure()
+    {
+        var point = placementGrid.GetRandomHouseStructurePoint();
+        return GetStructureAt(point);
+    }
+
+    public StructureModel GetRandomSpecialStructure()
+    {
+        var point = placementGrid.GetRandomSpecialStructurePoint();
+        return GetStructureAt(point);
+    }
+
+    public StructureModel GetRandomBigStructure()
+    {
+        var point = placementGrid.GetRandomBigStructurePoint();
+        return GetStructureAt(point);
+    }
+
+    public StructureModel GetRandomRoad()
+    {
+        var point = placementGrid.GetRandomRoadPoint();
+        return GetStructureAt(point);
     }
 }

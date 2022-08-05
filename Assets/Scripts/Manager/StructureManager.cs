@@ -41,6 +41,7 @@ public class StructureManager : MonoBehaviour
     {
         if (placementManager.CheckPositionBeforePlacementBigObject(position, CellType.Road, structure.width, structure.height) == false)
         {
+            AudioPlayer.instance.PlayPlacementError();
             return;
         }
         placementManager.PlaceBigObjectOnTheMap(position, structure.prefab, structure.width, structure.height, type);
