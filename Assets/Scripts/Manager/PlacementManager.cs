@@ -25,7 +25,56 @@ public class PlacementManager : MonoBehaviour
         return placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }
 
-    public bool CheckPositionBeforePlacement(Vector3Int position, CellType neightbourType)
+    public bool CheckPositionBeforePlacementBigSize(Vector3Int position, CellType neighbourType, int width, int height)
+    {
+        bool nearNeighbour = false;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, z);
+                if (DefaultCheck(newPosition) == false)
+                {
+                    return false;
+                }
+                if (nearNeighbour == false)
+                {
+                    nearNeighbour = NeighbourTypeCheck(newPosition, neighbourType);
+                }
+            }
+        }
+
+        return nearNeighbour;
+    }
+
+    public bool CheckPositionBeforePlacement(Vector3Int position, CellType neighbourType)
+    {
+        if (DefaultCheck(position) == false)
+        {
+            return false;
+        }
+
+        if (NeighbourTypeCheck(position, neighbourType) == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool NeighbourTypeCheck(Vector3Int position, CellType neighbourType)
+    {
+        var neighbours = GetNeighbourOfTypeFor(position, neighbourType);
+        if (neighbours.Count <= 0)
+        {
+            Debug.Log($"must be placed near a {neighbourType}");
+            return false;
+        }
+        return true;
+    }
+
+    private bool DefaultCheck(Vector3Int position)
     {
         if (CheckIfPositionInBound(position) == false)
         {
@@ -36,17 +85,9 @@ public class PlacementManager : MonoBehaviour
 
         if (CheckIfPositionIsFree(position) == false)
         {
-            // Debug.Log($"this position {position.x}:{position.z} is not empty");
+            Debug.Log($"this position {position.x}:{position.z} is not empty");
             return false;
         }
-
-        var neightbours = GetNeighbourOfTypeFor(position, neightbourType);
-        if (neightbours.Count <= 0)
-        {
-            Debug.Log($"must be placed near a {neightbourType}");
-            return false;
-        }
-
         return true;
     }
 

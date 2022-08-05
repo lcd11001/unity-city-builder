@@ -7,38 +7,43 @@ using UnityEngine;
 
 public class StructureManager : MonoBehaviour
 {
-    public StructurePrefabWeighted[] housesPrefab, specialsPrefab;
+    public StructurePrefabWeighted[] housesPrefab, specialsPrefab, bigStructuresPrefab;
     public PlacementManager placementManager;
 
-    private float[] housesWeight, specialsWeight;
+    private float[] housesWeight, specialsWeight, bigStructuresWeight;
 
     private void Start()
     {
         housesWeight = housesPrefab.Select(prefab => prefab.weight).ToArray();
         specialsWeight = specialsPrefab.Select(prefab => prefab.weight).ToArray();
+        bigStructuresWeight = bigStructuresPrefab.Select(prefab => prefab.weight).ToArray();
     }
 
     public void PlaceHouse(Vector3Int position)
     {
-        if (placementManager.CheckPositionBeforePlacement(position, CellType.Road) == false)
-        {
-            return;
-        }
-
         int randomIndex = GetRandomWeightIndex(housesWeight);
-        placementManager.PlaceObjectOnTheMap(position, housesPrefab[randomIndex].prefab, CellType.Structure);
-        AudioPlayer.instance.PlayPlacementSound();
+        PlaceAnyObject(position, housesPrefab[randomIndex], CellType.SpecialStructure);
     }
 
     public void PlaceSpecial(Vector3Int position)
     {
-        if (placementManager.CheckPositionBeforePlacement(position, CellType.Road) == false)
+        int randomIndex = GetRandomWeightIndex(specialsWeight);
+        PlaceAnyObject(position, specialsPrefab[randomIndex], CellType.SpecialStructure);
+    }
+
+    public void PlaceBigStructure(Vector3Int position)
+    {
+        int randomIndex = GetRandomWeightIndex(bigStructuresWeight);
+        PlaceAnyObject(position, bigStructuresPrefab[randomIndex], CellType.BigStructure);
+    }
+
+    private void PlaceAnyObject(Vector3Int position, StructurePrefabWeighted structure, CellType type)
+    {
+        if (placementManager.CheckPositionBeforePlacementBigSize(position, CellType.Road, structure.width, structure.height) == false)
         {
             return;
         }
-
-        int randomIndex = GetRandomWeightIndex(specialsWeight);
-        placementManager.PlaceObjectOnTheMap(position, specialsPrefab[randomIndex].prefab, CellType.SpecialStructure);
+        placementManager.PlaceObjectOnTheMap(position, structure.prefab, type);
         AudioPlayer.instance.PlayPlacementSound();
     }
 
@@ -78,4 +83,8 @@ public struct StructurePrefabWeighted
     public GameObject prefab;
     [Range(0, 1)]
     public float weight;
+    [Min(1)]
+    public int width;
+    [Min(1)]
+    public int height;
 }

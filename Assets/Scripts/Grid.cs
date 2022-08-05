@@ -52,6 +52,7 @@ public enum CellType
     Road,
     Structure,
     SpecialStructure,
+    BigStructure,
     None
 }
 
