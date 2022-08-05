@@ -120,8 +120,9 @@ public class PlacementManager : MonoBehaviour
 
     public void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type)
     {
-        placementGrid[position.x, position.z] = type;
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+
+        placementGrid[position.x, position.z] = type;
         structureObjects.Add(position, structure);
 
         DestroyNatureAt(position);
@@ -130,6 +131,13 @@ public class PlacementManager : MonoBehaviour
     public void PlaceBigObjectOnTheMap(Vector3Int position, GameObject structurePrefab, int width, int height, CellType type)
     {
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+
+        var structureNeedingRoad = structure.GetComponent<INeedingRoad>();
+        if (structureNeedingRoad != null)
+        {
+            structureNeedingRoad.RoadPosition = GetNearestRoad(position, width, height).Value;
+            Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
+        }
 
         for (int x = 0; x < width; x++)
         {
@@ -142,6 +150,23 @@ public class PlacementManager : MonoBehaviour
                 DestroyNatureAt(newPosition);
             }
         }
+    }
+
+    private Vector3Int? GetNearestRoad(Vector3Int position, int width, int height)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, z);
+                var roads = GetNeighbourOfTypeFor(newPosition, CellType.Road);
+                if (roads.Count > 0)
+                {
+                    return roads[0];
+                }
+            }
+        }
+        return null;
     }
 
     private void DestroyNatureAt(Vector3Int position)
@@ -189,9 +214,9 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition)
+    public List<Vector3Int> GetPathBetween(Vector3Int startPosition, Vector3Int endPosition, bool isAgent = false)
     {
-        var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z));
+        var resultPath = GridSearch.AStarSearch(placementGrid, new Point(startPosition.x, startPosition.z), new Point(endPosition.x, endPosition.z), isAgent);
         return resultPath.Select(point => new Vector3Int(point.X, 0, point.Y)).ToList();
     }
 

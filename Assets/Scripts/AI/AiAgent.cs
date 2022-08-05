@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CityBuilder.AI
@@ -18,6 +19,11 @@ namespace CityBuilder.AI
         bool moveFlag = false;
         int index = 0;
         Vector3 endPosition;
+
+        public void Initialize(List<Vector3Int> path)
+        {
+            Initialize(path.Select(pointInt => (Vector3)pointInt).ToList());
+        }
 
         public void Initialize(List<Vector3> path)
         {

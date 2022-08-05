@@ -22,7 +22,7 @@ public class StructureManager : MonoBehaviour
     public void PlaceHouse(Vector3Int position)
     {
         int randomIndex = GetRandomWeightIndex(housesWeight);
-        PlaceAnyObject(position, housesPrefab[randomIndex], CellType.SpecialStructure);
+        PlaceAnyObject(position, housesPrefab[randomIndex], CellType.Structure);
     }
 
     public void PlaceSpecial(Vector3Int position)
