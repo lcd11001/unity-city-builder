@@ -10,19 +10,6 @@ public class InputManager : BaseInputManager
 
     public LayerMask groundMask;
 
-    private Vector3Int? RaycastGround()
-    {
-        RaycastHit hit;
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundMask))
-        {
-            Vector3Int positionInt = Vector3Int.RoundToInt(hit.point);
-            return positionInt;
-        }
-
-        return null;
-    }
-
     public override void CheckArrowInput()
     {
         cameraMovementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -32,11 +19,7 @@ public class InputManager : BaseInputManager
     {
         if (Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false)
         {
-            var position = RaycastGround();
-            if (position != null)
-            {
-                OnMouseHold?.Invoke(position.Value);
-            }
+            OnMouseHold?.Invoke(mainCamera.ScreenPointToRay(Input.mousePosition));
         }
     }
 
@@ -52,11 +35,15 @@ public class InputManager : BaseInputManager
     {
         if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false)
         {
-            var position = RaycastGround();
-            if (position != null)
-            {
-                OnMouseClick?.Invoke(position.Value);
-            }
+            OnMouseClick?.Invoke(mainCamera.ScreenPointToRay(Input.mousePosition));
+        }
+    }
+
+    public override void CheckEscapeInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnEscape?.Invoke();
         }
     }
 }
