@@ -7402,6 +7402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementManager: {fileID: 1789113467}
+  pedestriantGroup: {fileID: 1449999742}
   pedestrianPrefabs:
   - {fileID: 918228557285261549, guid: c0433b3a51a88af47ac66d23eab55138, type: 3}
   - {fileID: 5928032463670676373, guid: 646488162f240a949a4e48ed1686ccda, type: 3}
@@ -17899,6 +17900,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1438391666}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1449999741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1449999742}
+  m_Layer: 0
+  m_Name: Perdestriants
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1449999742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449999741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1450213217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27195,6 +27227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 0}
   cameraMovementSpeed: 5
+  maxOrthographicSize: 5
+  minOrthographicSize: 0.5
+  sensitivity: 0.1
 --- !u!1001 &2051241695
 PrefabInstance:
   m_ObjectHideFlags: 0

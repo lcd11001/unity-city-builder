@@ -7,6 +7,7 @@ namespace CityBuilder.AI
     public class AiDirector : MonoBehaviour
     {
         public PlacementManager placementManager;
+        public Transform pedestriantGroup;
         public GameObject[] pedestrianPrefabs;
 
         public void SpawnAllAgents()
@@ -29,19 +30,16 @@ namespace CityBuilder.AI
                 var startPosition = ((INeedingRoad)startStructure).RoadPosition;
                 var endPosition = ((INeedingRoad)endStructure).RoadPosition;
                 
-                var agent = Instantiate(GetRandomPedestriant(), startPosition, Quaternion.identity);
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
 
                 if (path.Count > 0)
                 {
                     path.Reverse();
+                    var agent = Instantiate(GetRandomPedestriant(), startPosition, Quaternion.identity);
+                    agent.transform.SetParent(pedestriantGroup);
                     var aiAgent = agent.GetComponent<AiAgent>();
                     aiAgent.Initialize(path);
                 }
-            }
-            else
-            {
-                Debug.Log($"startStructure {startStructure} endStructure {endStructure}");
             }
         }
 
