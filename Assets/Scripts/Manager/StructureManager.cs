@@ -39,11 +39,11 @@ public class StructureManager : MonoBehaviour
 
     private void PlaceAnyObject(Vector3Int position, StructurePrefabWeighted structure, CellType type)
     {
-        if (placementManager.CheckPositionBeforePlacementBigSize(position, CellType.Road, structure.width, structure.height) == false)
+        if (placementManager.CheckPositionBeforePlacementBigObject(position, CellType.Road, structure.width, structure.height) == false)
         {
             return;
         }
-        placementManager.PlaceObjectOnTheMap(position, structure.prefab, type);
+        placementManager.PlaceBigObjectOnTheMap(position, structure.prefab, structure.width, structure.height, type);
         AudioPlayer.instance.PlayPlacementSound();
     }
 

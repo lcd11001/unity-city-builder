@@ -25,7 +25,7 @@ public class PlacementManager : MonoBehaviour
         return placementGrid.GetAllAdjacentCellTypes(position.x, position.z);
     }
 
-    public bool CheckPositionBeforePlacementBigSize(Vector3Int position, CellType neighbourType, int width, int height)
+    public bool CheckPositionBeforePlacementBigObject(Vector3Int position, CellType neighbourType, int width, int height)
     {
         bool nearNeighbour = false;
 
@@ -127,6 +127,23 @@ public class PlacementManager : MonoBehaviour
         DestroyNatureAt(position);
     }
 
+    public void PlaceBigObjectOnTheMap(Vector3Int position, GameObject structurePrefab, int width, int height, CellType type)
+    {
+        StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                var newPosition = position + new Vector3Int(x, 0, z);
+                placementGrid[newPosition.x, newPosition.z] = type;
+                structureObjects.Add(newPosition, structure);
+
+                DestroyNatureAt(newPosition);
+            }
+        }
+    }
+
     private void DestroyNatureAt(Vector3Int position)
     {
         Vector3 centerBox = position + new Vector3(0, 0.5f, 0);
@@ -150,7 +167,7 @@ public class PlacementManager : MonoBehaviour
 
     private StructureModel CreateNewStructureModel(Vector3Int position, GameObject structurePrefab, CellType type)
     {
-        GameObject struture = new GameObject(type.ToString());
+        GameObject struture = new GameObject($"{type.ToString()} {position.x}:{position.z}");
         struture.transform.SetParent(transform);
         struture.transform.localPosition = position;
 
