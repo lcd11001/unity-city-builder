@@ -66,12 +66,13 @@ namespace CityBuilder.AI
         private float MoveTheAgent()
         {
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, endPosition, step);
+            Vector3 targetPosition = new Vector3(endPosition.x, transform.position.y, endPosition.z); // don't change AI y position
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
-            var lookDirection = endPosition - transform.position;
+            var lookDirection = targetPosition - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), Time.deltaTime * rotationSpeed);
 
-            return Vector3.Distance(transform.position, endPosition);
+            return Vector3.Distance(transform.position, targetPosition);
         }
 
         private void OnDestroy()
