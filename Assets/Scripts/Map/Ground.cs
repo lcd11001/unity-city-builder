@@ -29,11 +29,11 @@ namespace CityBuilder.Map
             float z = mapConfig.height;
             Vector3 newScale = new Vector3(x, y, z);
 
-            Debug.Log($"Config {gameObject.name} to new scale {newScale}");
+            // Debug.Log($"Config {gameObject.name} to new scale {newScale}");
             transform.localScale = newScale;
 
             Vector3 newPosition = new Vector3(0, (y * -0.5f) - 0.01f, 0);
-            Debug.Log($"Config {gameObject.name} to new position {newPosition}");
+            // Debug.Log($"Config {gameObject.name} to new position {newPosition}");
             transform.localPosition = newPosition;
         }
 

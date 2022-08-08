@@ -22,7 +22,7 @@ namespace CityBuilder.Map
             float z = (mapConfig.height - 1) * 0.5f;
             Vector3 newPosition = new Vector3(x, 0, z);
             transform.localPosition = newPosition;
-            Debug.Log($"Config {gameObject.name} to new position {newPosition}");
+            // Debug.Log($"Config {gameObject.name} to new position {newPosition}");
         }
     }
 }

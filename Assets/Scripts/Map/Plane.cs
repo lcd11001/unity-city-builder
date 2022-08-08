@@ -28,7 +28,7 @@ namespace CityBuilder.Map
             float z = mapConfig.height * 0.1f;
             Vector3 newScale = new Vector3(x, 1, z);
 
-            Debug.Log($"Config {gameObject.name} to new scale {newScale}");
+            // Debug.Log($"Config {gameObject.name} to new scale {newScale}");
             transform.localScale = newScale;
         }
 
@@ -39,7 +39,7 @@ namespace CityBuilder.Map
             Vector2 textureScale = new Vector2(x, y);
             mapConfig.planeMaterial.mainTextureScale = textureScale;
 
-            Debug.Log($"Config {gameObject.name} material tiling to {textureScale}");
+            // Debug.Log($"Config {gameObject.name} material tiling to {textureScale}");
 
             var mr = GetComponent<MeshRenderer>();
             mr.material = mapConfig.planeMaterial;
