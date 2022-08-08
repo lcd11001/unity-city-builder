@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CityBuilder.AI
@@ -16,7 +17,7 @@ namespace CityBuilder.AI
         [SerializeField]
         protected bool hasCrosswalk;
 
-        float approximateThresholdCorner = 0.3f;
+        float approximateThresholdCorner = 0.31f;
 
         public virtual AiRoadMarker GetPositionForPerdestrianToSpawn(Vector3 structurePosition)
         {
@@ -50,9 +51,11 @@ namespace CityBuilder.AI
                     }
                 }
 
+                Debug.Assert(closetMarker != null, $"1. can not get closet marker from structure {structurePosition} with {string.Join(",", pedestrianMarkers.Select(x => x.Position))}");
                 return closetMarker;
             }
 
+            Debug.Assert(false, $"2. can not get closet marker from structure {structurePosition} with {string.Join(",", pedestrianMarkers.Select(x => x.Position))}");
             return null;
         }
         public Vector3 GetClosetPedestrianPosition(Vector3 currentPosition)
