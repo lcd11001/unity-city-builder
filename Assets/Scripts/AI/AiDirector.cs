@@ -64,7 +64,7 @@ namespace CityBuilder.AI
             graph.ClearGraph();
 
             CreateGraph(path);
-            Debug.Log(graph);
+            // Debug.Log(graph);
 
             return AiAdjacencyGraph.AStarSearch(graph, startPosition, endPosition);
         }
@@ -117,8 +117,6 @@ namespace CityBuilder.AI
                         distanceSortedMarkers[j].Key.ConnectToMarker(distanceSortedMarkers[j].Value);
                     }
                 }
-
-                Debug.Log($"i: {i} currentPosition {currentPosition} graph {graph.ToString()}");
             }
         }
 

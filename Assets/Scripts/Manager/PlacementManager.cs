@@ -126,7 +126,7 @@ public class PlacementManager : MonoBehaviour
         if (structureNeedingRoad != null)
         {
             structureNeedingRoad.RoadPosition = GetNearestRoad(position, 1, 1).Value;
-            Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
+            // Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
         }
 
         placementGrid[position.x, position.z] = type;
@@ -143,7 +143,7 @@ public class PlacementManager : MonoBehaviour
         if (structureNeedingRoad != null)
         {
             structureNeedingRoad.RoadPosition = GetNearestRoad(position, width, height).Value;
-            Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
+            // Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
         }
 
         for (int x = 0; x < width; x++)
