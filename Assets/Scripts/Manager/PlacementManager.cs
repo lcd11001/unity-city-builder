@@ -111,7 +111,7 @@ public class PlacementManager : MonoBehaviour
         return placementGrid[position.x, position.z] == type;
     }
 
-    public void PlaceTemporaryStructure(Vector3Int position, GameObject structurePrefab, CellType type)
+    public void PlaceTemporaryRoadStructure(Vector3Int position, GameObject structurePrefab, CellType type)
     {
         placementGrid[position.x, position.z] = type;
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
@@ -121,6 +121,13 @@ public class PlacementManager : MonoBehaviour
     public void PlaceObjectOnTheMap(Vector3Int position, GameObject structurePrefab, CellType type)
     {
         StructureModel structure = CreateNewStructureModel(position, structurePrefab, type);
+
+        var structureNeedingRoad = structure.GetComponent<INeedingRoad>();
+        if (structureNeedingRoad != null)
+        {
+            structureNeedingRoad.RoadPosition = GetNearestRoad(position, 1, 1).Value;
+            Debug.Log($"nearest road position is: {structureNeedingRoad.RoadPosition}");
+        }
 
         placementGrid[position.x, position.z] = type;
         structureObjects.Add(position, structure);
