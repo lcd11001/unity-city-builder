@@ -100,9 +100,9 @@ namespace CityBuilder.AI
                         }
                         else
                         {
-                            graph.AddEdge(marker.Position, nextRoadStructure.GetNearestMarkerTo(marker.Position));
+                            graph.AddEdge(marker.Position, nextRoadStructure.GetNearestMarkerTo(marker.Position).Position);
                             
-                            marker.ConnectToMarker(nextRoadStructure.GetPedestrianSpawnMarker(marker.Position));
+                            marker.ConnectToMarker(nextRoadStructure.GetNearestMarkerTo(marker.Position));
                         }
                     }
                 }

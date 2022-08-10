@@ -19,14 +19,14 @@ namespace CityBuilder.AI
 
         float approximateThresholdCorner = 0.31f;
 
-        public virtual AiRoadMarker GetPositionForPerdestrianToSpawn(Vector3 structurePosition)
+        public AiRoadMarker GetPerdestrianMarker(Vector3 structurePosition)
         {
             return GetClosetMarkerTo(structurePosition, pedestrianMarkers);
         }
 
-        public Vector3 GetClosetPedestrianPosition(Vector3 currentPosition)
+        public AiRoadMarker GetNearestPedestrianMarker(Vector3 currentPosition)
         {
-            return GetClosetMarkerTo(currentPosition, pedestrianMarkers, isCorner).Position;
+            return GetClosetMarkerTo(currentPosition, pedestrianMarkers, isCorner);
         }
 
         private AiRoadMarker GetClosetMarkerTo(Vector3 structurePosition, List<AiRoadMarker> pedestrianMarkers, bool isCorner = false)
