@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CityBuilder.AI;
 using SVS;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public StructureManager structureManager;
     public UIManager uiManager;
     public ObjectDetector objectDetector;
+    public PathVisualizer pathVisualizer;
 
     private void Start()
     {
@@ -26,6 +28,18 @@ public class GameManager : MonoBehaviour
     {
         ClearInputActions();
         uiManager.ResetButtonsColor();
+        pathVisualizer.ResetPath();
+        inputManager.OnMouseClick += TrySelectingAgent;
+    }
+
+    private void TrySelectingAgent(Ray ray)
+    {
+        GameObject hitObject = objectDetector.RaycastAll(ray);
+        if (hitObject != null)
+        {
+            var agent = hitObject.GetComponent<AiAgent>();
+            agent?.ShowPath();
+        }
     }
 
     private void BigStructurePlacementHandler()

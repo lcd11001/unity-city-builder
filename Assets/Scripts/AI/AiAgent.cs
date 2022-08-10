@@ -20,6 +20,20 @@ namespace CityBuilder.AI
         int index = 0;
         Vector3 endPosition;
 
+        public Color pathColor;
+        PathVisualizer pathVisualizer;
+
+        private void Start()
+        {
+            pathVisualizer = FindObjectOfType<PathVisualizer>();
+            pathColor = UnityEngine.Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
+        }
+
+        public void ShowPath()
+        {
+            pathVisualizer.ShowPath(pathToGo, this, pathColor);
+        }
+
         public void Initialize(List<Vector3Int> path)
         {
             Initialize(path.Select(pointInt => (Vector3)pointInt).ToList());

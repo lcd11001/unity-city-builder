@@ -24,7 +24,12 @@ namespace CityBuilder.AI
             return GetClosetMarkerTo(structurePosition, pedestrianMarkers);
         }
 
-        private AiRoadMarker GetClosetMarkerTo(Vector3 structurePosition, List<AiRoadMarker> pedestrianMarkers)
+        public Vector3 GetClosetPedestrianPosition(Vector3 currentPosition)
+        {
+            return GetClosetMarkerTo(currentPosition, pedestrianMarkers, isCorner).Position;
+        }
+
+        private AiRoadMarker GetClosetMarkerTo(Vector3 structurePosition, List<AiRoadMarker> pedestrianMarkers, bool isCorner = false)
         {
             if (isCorner)
             {
@@ -57,10 +62,6 @@ namespace CityBuilder.AI
 
             Debug.Assert(false, $"2. can not get closet marker from structure {structurePosition} with {string.Join(",", pedestrianMarkers.Select(x => x.Position))}");
             return null;
-        }
-        public Vector3 GetClosetPedestrianPosition(Vector3 currentPosition)
-        {
-            return GetClosetMarkerTo(currentPosition, pedestrianMarkers).Position;
         }
 
         public List<AiRoadMarker> GetAllPedestrianMarker()

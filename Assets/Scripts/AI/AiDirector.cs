@@ -40,8 +40,8 @@ namespace CityBuilder.AI
                     return;
                 }
 
-                var startMarkerPosition = placementManager.GetStructureAt(startPosition).GetNearestMarkerTo(startStructure.transform.position);
-                var endMarkerPosition = placementManager.GetStructureAt(endPosition).GetNearestMarkerTo(endStructure.transform.position);
+                var startMarker = placementManager.GetStructureAt(startPosition).GetPedestrianSpawnMarker(startStructure.transform.position);
+                var endMarker = placementManager.GetStructureAt(endPosition).GetPedestrianSpawnMarker(endStructure.transform.position);
 
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
 
@@ -49,9 +49,9 @@ namespace CityBuilder.AI
                 {
                     path.Reverse();
 
-                    List<Vector3> agentPath = GetPedestrianPath(path, startMarkerPosition, endMarkerPosition);
+                    List<Vector3> agentPath = GetPedestrianPath(path, startMarker.Position, endMarker.Position);
 
-                    var agent = Instantiate(GetRandomPedestriant(), startMarkerPosition, Quaternion.identity);
+                    var agent = Instantiate(GetRandomPedestriant(), startMarker.Position, Quaternion.identity);
                     agent.transform.SetParent(pedestriantGroup);
                     var aiAgent = agent.GetComponent<AiAgent>();
                     aiAgent.Initialize(agentPath);
