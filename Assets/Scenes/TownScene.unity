@@ -6819,7 +6819,7 @@ MonoBehaviour:
   structureManager: {fileID: 1780442901}
   uiManager: {fileID: 681313534}
   objectDetector: {fileID: 720265358}
-  pathVisualizer: {fileID: 0}
+  pathVisualizer: {fileID: 1638832466}
 --- !u!4 &580657218
 Transform:
   m_ObjectHideFlags: 0
