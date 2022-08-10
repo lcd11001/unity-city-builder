@@ -9,7 +9,9 @@ namespace CityBuilder.AI
     {
         public Vector3 Position { get => transform.position; }
 
-        public List<AiRoadMarker> adjacentMarkers;
+        public List<AiRoadMarker> adjacentMarkers = new List<AiRoadMarker>();
+
+        private HashSet<AiRoadMarker> connectedMarkers = new HashSet<AiRoadMarker>();
 
         [SerializeField]
         private bool openForConnection;
@@ -20,15 +22,21 @@ namespace CityBuilder.AI
             return new List<Vector3>(adjacentMarkers.Select(x => x.Position).ToList());
         }
 
+        public void ConnectToMarker(AiRoadMarker other)
+        {
+            connectedMarkers.Add(other);
+        }
+
         private void OnDrawGizmos()
         {
-            if (adjacentMarkers == null)
-            {
-                return;
-            }
-
             Gizmos.color = Color.yellow;
             foreach (var marker in adjacentMarkers)
+            {
+                Gizmos.DrawLine(Position, marker.Position);
+            }
+
+            Gizmos.color = Color.green;
+            foreach (var marker in connectedMarkers)
             {
                 Gizmos.DrawLine(Position, marker.Position);
             }

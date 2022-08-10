@@ -27,6 +27,7 @@ namespace CityBuilder.AI
 
         public void Initialize(List<Vector3> path)
         {
+            Debug.Assert(path.Count > 0, $"invalid path with length = {path.Count}");
             pathToGo = path;
             index = 1;
             moveFlag = true;

@@ -34,6 +34,12 @@ namespace CityBuilder.AI
                 var startPosition = ((INeedingRoad)startStructure).RoadPosition;
                 var endPosition = ((INeedingRoad)endStructure).RoadPosition;
 
+                if (startPosition == endPosition)
+                {
+                    Debug.Log($"skip spawn agent at same position {startPosition}");
+                    return;
+                }
+
                 var startMarkerPosition = placementManager.GetStructureAt(startPosition).GetNearestMarkerTo(startStructure.transform.position);
                 var endMarkerPosition = placementManager.GetStructureAt(endPosition).GetNearestMarkerTo(endStructure.transform.position);
 
@@ -65,7 +71,7 @@ namespace CityBuilder.AI
 
         private void CreateGraph(List<Vector3Int> path)
         {
-            Dictionary<AiRoadMarker, Vector3> tempDictionary = new Dictionary<AiRoadMarker, Vector3>();
+            Dictionary<AiRoadMarker, AiRoadMarker> tempDictionary = new Dictionary<AiRoadMarker, AiRoadMarker>();
 
             for (int i = 0; i < path.Count; i++)
             {
@@ -90,23 +96,29 @@ namespace CityBuilder.AI
                         var nextRoadStructure = placementManager.GetStructureAt(path[i + 1]);
                         if (limitDistance)
                         {
-                            tempDictionary.Add(marker, nextRoadStructure.GetNearestMarkerTo(marker.Position));
+                            tempDictionary.Add(marker, nextRoadStructure.GetPedestrianSpawnMarker(marker.Position));
                         }
                         else
                         {
                             graph.AddEdge(marker.Position, nextRoadStructure.GetNearestMarkerTo(marker.Position));
+                            
+                            marker.ConnectToMarker(nextRoadStructure.GetPedestrianSpawnMarker(marker.Position));
                         }
                     }
                 }
 
                 if (limitDistance && tempDictionary.Count == 4)
                 {
-                    var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value)).ToList();
+                    var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value.Position)).ToList();
                     for (int j = 0; j<2; j++)
                     {
-                        graph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value);
+                        graph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value.Position);
+
+                        distanceSortedMarkers[j].Key.ConnectToMarker(distanceSortedMarkers[j].Value);
                     }
                 }
+
+                Debug.Log($"i: {i} currentPosition {currentPosition} graph {graph.ToString()}");
             }
         }
 
@@ -115,14 +127,14 @@ namespace CityBuilder.AI
             return pedestrianPrefabs[UnityEngine.Random.Range(0, pedestrianPrefabs.Length)];
         }
 
-        private void Update() {
-            foreach (var vertex in graph.GetVertices())
-            {
-                foreach (var vertexNeighbour in graph.GetConnectedVerticesTo(vertex))
-                {
-                    Debug.DrawLine(vertex.Position + Vector3.up, vertexNeighbour.Position + Vector3.up, Color.red);
-                }
-            }
-        }
+        // private void Update() {
+        //     foreach (var vertex in graph.GetVertices())
+        //     {
+        //         foreach (var vertexNeighbour in graph.GetConnectedVerticesTo(vertex))
+        //         {
+        //             Debug.DrawLine(vertex.Position + Vector3.up, vertexNeighbour.Position + Vector3.up, Color.red);
+        //         }
+        //     }
+        // }
     }
 }

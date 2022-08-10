@@ -161,6 +161,7 @@ namespace CityBuilder.AI
                     }
                 }
             }
+            Debug.Assert(false, $"A* can not found path from {startPosition} to {endPosition}");
             return path;
         }
 
