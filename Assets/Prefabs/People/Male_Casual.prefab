@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 1507528100154629433}
   - component: {fileID: 1431358608503807792}
   - component: {fileID: 1835600416282951184}
+  - component: {fileID: 3641505258388939790}
   m_Layer: 0
   m_Name: Male_Casual
   m_TagString: Untagged
@@ -514,6 +515,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   rotationSpeed: 10
+  pathColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!65 &3641505258388939790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278821950334863235}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.15, z: 0.05}
+  m_Center: {x: 0, y: 0.075, z: 0}
 --- !u!1 &2706860788363568042
 GameObject:
   m_ObjectHideFlags: 0

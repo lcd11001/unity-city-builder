@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 573615966104836695}
   - component: {fileID: 9112018391701427460}
   - component: {fileID: 1726255114813938540}
+  - component: {fileID: 6551342141288273433}
   m_Layer: 0
   m_Name: Female_Casual
   m_TagString: Untagged
@@ -289,6 +290,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   rotationSpeed: 10
+  pathColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!65 &6551342141288273433
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918228557285261549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.15, z: 0.05}
+  m_Center: {x: 0, y: 0.075, z: 0}
 --- !u!1 &1579172822639618269
 GameObject:
   m_ObjectHideFlags: 0
