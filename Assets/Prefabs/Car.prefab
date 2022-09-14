@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1380358970494347724}
   - component: {fileID: 5401635380926024136}
   - component: {fileID: 4018405083080399807}
+  - component: {fileID: 8231832725639371478}
+  - component: {fileID: 5989059215601376096}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -97,3 +99,51 @@ MonoBehaviour:
   - {fileID: 1101577590284328575, guid: 5d2ce4f2e805b5c4092a09a0930cf37d, type: 3}
   - {fileID: 7954715419065063505, guid: 10f4671cf44100d409a99458809783f8, type: 3}
   - {fileID: 771982215564958993, guid: 855cd82b21977fe458e741a8f5352a56, type: 3}
+--- !u!114 &8231832725639371478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380358970494347727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11aead21942183d4b84d3e8554ac853c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 10
+  torque: 0.01
+  maxSpeed: 3
+  movementVector: {x: 0, y: 0, z: 0}
+--- !u!114 &5989059215601376096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380358970494347727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7232b1c8057344780d84003d363617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  path: []
+  arriveDistance: 0.3
+  lastpointArriveDistance: 0.1
+  turningAngleOffset: 5
+  currentTargetPosition: {x: 0, y: 0, z: 0}
+  <OnDrive>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8231832725639371478}
+        m_TargetAssemblyTypeName: AiCarController, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
