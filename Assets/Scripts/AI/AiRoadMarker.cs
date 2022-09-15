@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace CityBuilder.AI
@@ -29,16 +30,27 @@ namespace CityBuilder.AI
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            foreach (var marker in adjacentMarkers)
+            if (Selection.activeObject == gameObject)
             {
-                Gizmos.DrawLine(Position, marker.Position);
-            }
+                if (adjacentMarkers.Count > 0)
+                {
+                    Gizmos.color = Color.yellow;
+                    foreach (var marker in adjacentMarkers)
+                    {
+                        Gizmos.DrawLine(Position, marker.Position);
+                    }
+                }
 
-            Gizmos.color = Color.green;
-            foreach (var marker in connectedMarkers)
-            {
-                Gizmos.DrawLine(Position, marker.Position);
+                if (connectedMarkers.Count > 0)
+                {
+                    Gizmos.color = Color.green;
+                    foreach (var marker in connectedMarkers)
+                    {
+                        Gizmos.DrawLine(Position, marker.Position);
+                    }
+                }
+
+                Gizmos.color = Color.white;
             }
         }
     }
