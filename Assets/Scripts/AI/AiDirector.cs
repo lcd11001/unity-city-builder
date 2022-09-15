@@ -18,6 +18,53 @@ namespace CityBuilder.AI
 
         AiAdjacencyGraph graph = new AiAdjacencyGraph();
 
+        public void SpawnAllCars()
+        {
+            foreach (var house in placementManager.GetAllHouseStructure())
+            {
+                TrySpawningACar(house, placementManager.GetRandomSpecialStructure());
+            }
+
+            // foreach (var special in placementManager.GetAllSpecialStructure())
+            // {
+            //     TrySpawningACar(special, placementManager.GetRandomHouseStructure());
+            // }
+        }
+
+        private void TrySpawningACar(StructureModel startStructure, StructureModel endStructure)
+        {
+            if (startStructure != null && endStructure != null)
+            {
+                var startPosition = ((INeedingRoad)startStructure).RoadPosition;
+                var endPosition = ((INeedingRoad)endStructure).RoadPosition;
+
+                if (startPosition == endPosition)
+                {
+                    Debug.Log($"skip spawn car at same position {startPosition}");
+                    return;
+                }
+
+                // var startMarker = placementManager.GetStructureAt(startPosition).GetPedestrianSpawnMarker(startStructure.transform.position);
+                // var endMarker = placementManager.GetStructureAt(endPosition).GetPedestrianSpawnMarker(endStructure.transform.position);
+
+                var path = placementManager.GetPathBetween(startPosition, endPosition, true);
+
+                if (path.Count > 0)
+                {
+                    path.Reverse();
+
+                    // List<Vector3> agentPath = GetPedestrianPath(path, startMarker.Position, endMarker.Position);
+
+                    // var car = Instantiate(carPrefab, startMarker.Position, Quaternion.identity);
+                    var car = Instantiate(carPrefab, startPosition, Quaternion.identity);
+                    car.transform.SetParent(carGroup);
+                    var aiCar = car.GetComponent<AiCar>();
+                    // aiCar.SetPath(agentPath);
+                    aiCar.SetPath(path.ConvertAll(p => (Vector3)p));
+                }
+            }
+        }
+
         public void SpawnAllAgents()
         {
             foreach (var house in placementManager.GetAllHouseStructure())

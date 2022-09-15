@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 10
   torque: 0.01
-  maxSpeed: 3
+  maxSpeed: 0.4
   movementVector: {x: 0, y: 0, z: 0}
 --- !u!114 &5989059215601376096
 MonoBehaviour:
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: []
   arriveDistance: 0.3
-  lastpointArriveDistance: 0.1
+  lastPointArriveDistance: 0.1
   turningAngleOffset: 5
   currentTargetPosition: {x: 0, y: 0, z: 0}
   <OnDrive>k__BackingField:
