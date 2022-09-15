@@ -9,8 +9,12 @@ namespace CityBuilder.AI
     public class AiDirector : MonoBehaviour
     {
         public PlacementManager placementManager;
+        [Space(10)]
         public Transform pedestriantGroup;
-        public GameObject[] pedestrianPrefabs;
+        public GameObject pedestrianPrefab;
+        [Space(10)]
+        public Transform carGroup;
+        public GameObject carPrefab;
 
         AiAdjacencyGraph graph = new AiAdjacencyGraph();
 
@@ -51,9 +55,9 @@ namespace CityBuilder.AI
 
                     List<Vector3> agentPath = GetPedestrianPath(path, startMarker.Position, endMarker.Position);
 
-                    var agent = Instantiate(GetRandomPedestriant(), startMarker.Position, Quaternion.identity);
+                    var agent = Instantiate(pedestrianPrefab, startMarker.Position, Quaternion.identity);
                     agent.transform.SetParent(pedestriantGroup);
-                    var aiAgent = agent.GetComponent<AiAgent>();
+                    var aiAgent = agent.GetComponentInChildren<AiAgent>();
                     aiAgent.Initialize(agentPath);
                 }
             }
@@ -118,11 +122,6 @@ namespace CityBuilder.AI
                     }
                 }
             }
-        }
-
-        private GameObject GetRandomPedestriant()
-        {
-            return pedestrianPrefabs[UnityEngine.Random.Range(0, pedestrianPrefabs.Length)];
         }
 
         // private void Update() {
