@@ -45,8 +45,8 @@ namespace CityBuilder.AI
                     return;
                 }
 
-                // var startMarker = placementManager.GetStructureAt(startPosition).GetPedestrianSpawnMarker(startStructure.transform.position);
-                // var endMarker = placementManager.GetStructureAt(endPosition).GetPedestrianSpawnMarker(endStructure.transform.position);
+                var startMarker = placementManager.GetStructureAt(startPosition).GetNearestCarMarkerTo(startStructure.transform.position);
+                var endMarker = placementManager.GetStructureAt(endPosition).GetNearestCarMarkerTo(endStructure.transform.position);
 
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
 
@@ -54,14 +54,14 @@ namespace CityBuilder.AI
                 {
                     path.Reverse();
 
-                    // List<Vector3> agentPath = GetPedestrianPath(path, startMarker.Position, endMarker.Position);
+                    List<Vector3> agentPath = GetCarPath(path, startMarker.Position, endMarker.Position);
 
-                    // var car = Instantiate(carPrefab, startMarker.Position, Quaternion.identity);
-                    var car = Instantiate(carPrefab, startPosition, Quaternion.identity);
+                    var car = Instantiate(carPrefab, startMarker.Position, Quaternion.identity);
+                    //var car = Instantiate(carPrefab, startPosition, Quaternion.identity);
                     car.transform.SetParent(carGroup);
                     var aiCar = car.GetComponent<AiCar>();
-                    // aiCar.SetPath(agentPath);
-                    aiCar.SetPath(path.ConvertAll(p => (Vector3)p));
+                    aiCar.SetPath(agentPath);
+                    //aiCar.SetPath(path.ConvertAll(p => (Vector3)p));
                 }
             }
         }
@@ -138,23 +138,25 @@ namespace CityBuilder.AI
                 foreach (var marker in markerList)
                 {
                     pedestrianGraph.AddVertex(marker.Position);
-                    foreach (var markerNeighbourPosition in marker.GetAdjacentPositions())
+                    foreach (var markerNeighbour in marker.adjacentMarkers)
                     {
-                        pedestrianGraph.AddEdge(marker.Position, markerNeighbourPosition);
+                        pedestrianGraph.AddEdge(marker.Position, markerNeighbour.Position);
+                        marker.ConnectToMarker(markerNeighbour);
                     }
 
                     if (marker.OpenForConnection && i + 1 < path.Count)
                     {
                         var nextRoadStructure = placementManager.GetStructureAt(path[i + 1]);
+                        var nextPedestrianMarker = nextRoadStructure.GetNearestPedestrianMarkerTo(marker.Position);
+
                         if (limitDistance)
                         {
-                            tempDictionary.Add(marker, nextRoadStructure.GetPedestrianSpawnMarker(marker.Position));
+                            tempDictionary.Add(marker, nextPedestrianMarker);
                         }
                         else
                         {
-                            pedestrianGraph.AddEdge(marker.Position, nextRoadStructure.GetNearestPedestrianMarkerTo(marker.Position).Position);
-                            
-                            marker.ConnectToMarker(nextRoadStructure.GetNearestPedestrianMarkerTo(marker.Position));
+                            pedestrianGraph.AddEdge(marker.Position, nextPedestrianMarker.Position);
+                            marker.ConnectToMarker(nextPedestrianMarker);
                         }
                     }
                 }
@@ -162,10 +164,9 @@ namespace CityBuilder.AI
                 if (limitDistance && tempDictionary.Count == 4)
                 {
                     var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value.Position)).ToList();
-                    for (int j = 0; j<2; j++)
+                    for (int j = 0; j < 2; j++)
                     {
                         pedestrianGraph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value.Position);
-
                         distanceSortedMarkers[j].Key.ConnectToMarker(distanceSortedMarkers[j].Value);
                     }
                 }
@@ -184,11 +185,17 @@ namespace CityBuilder.AI
 
         private void CreateCarGraph(List<Vector3Int> path)
         {
+            Dictionary<AiRoadMarker, AiRoadMarker> tempDictionary = new Dictionary<AiRoadMarker, AiRoadMarker>();
+
             for (int i = 0; i < path.Count; i++)
             {
                 var currentPosition = path[i];
                 var roadStructure = placementManager.GetStructureAt(currentPosition);
+
                 var markerList = roadStructure.GetCarMarkers();
+
+                bool limitDistance = markerList.Count > 3;
+                tempDictionary.Clear();
 
                 foreach (var marker in markerList)
                 {
@@ -196,19 +203,53 @@ namespace CityBuilder.AI
                     foreach (var markerNeighbour in marker.adjacentMarkers)
                     {
                         carGraph.AddEdge(marker.Position, markerNeighbour.Position);
+                        marker.ConnectToMarker(markerNeighbour);
+                    }
+
+                    if (marker.OpenForConnection && i + 1 < path.Count)
+                    {
+                        var nextRoadStructure = placementManager.GetStructureAt(path[i + 1]);
+                        var nextCarMarker = nextRoadStructure.GetNearestCarMarkerTo(marker.Position);
+
+                        if (limitDistance)
+                        {
+                            tempDictionary.Add(marker, nextCarMarker);
+                        }
+                        else
+                        {
+                            carGraph.AddEdge(marker.Position, nextCarMarker.Position);
+                            marker.ConnectToMarker(nextCarMarker);
+                        }
+                    }
+                }
+
+                if (limitDistance && tempDictionary.Count > 1)
+                {
+                    var distanceSortestMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value.Position)).ToList();
+                    for (int j = 0; j < 2; j++)
+                    {
+                        carGraph.AddEdge(distanceSortestMarkers[j].Key.Position, distanceSortestMarkers[j].Value.Position);
+                        distanceSortestMarkers[j].Key.ConnectToMarker(distanceSortestMarkers[j].Value);
                     }
                 }
             }
         }
 
-        // private void Update() {
-        //     foreach (var vertex in graph.GetVertices())
-        //     {
-        //         foreach (var vertexNeighbour in graph.GetConnectedVerticesTo(vertex))
-        //         {
-        //             Debug.DrawLine(vertex.Position + Vector3.up, vertexNeighbour.Position + Vector3.up, Color.red);
-        //         }
-        //     }
-        // }
+        //private void Update()
+        //{
+        //    DrawGraph(pedestrianGraph, Color.red);
+        //    DrawGraph(carGraph, Color.green);
+        //}
+
+        private void DrawGraph(AiAdjacencyGraph graph, Color color)
+        {
+            foreach (var vertex in graph.GetVertices())
+            {
+                foreach (var vertexNeighbour in graph.GetConnectedVerticesTo(vertex))
+                {
+                    Debug.DrawLine(vertex.Position + Vector3.up, vertexNeighbour.Position + Vector3.up, color);
+                }
+            }
+        }
     }
 }

@@ -40,18 +40,18 @@ namespace CityBuilder.AI
                         Gizmos.DrawLine(Position, marker.Position);
                     }
                 }
-
-                if (connectedMarkers.Count > 0)
-                {
-                    Gizmos.color = Color.green;
-                    foreach (var marker in connectedMarkers)
-                    {
-                        Gizmos.DrawLine(Position, marker.Position);
-                    }
-                }
-
-                Gizmos.color = Color.white;
             }
+
+            if (connectedMarkers.Count > 0)
+            {
+                Gizmos.color = Color.green;
+                foreach (var marker in connectedMarkers)
+                {
+                    Gizmos.DrawLine(Position, marker.Position);
+                }
+            }
+             
+            Gizmos.color = Color.white;
         }
     }
 }
