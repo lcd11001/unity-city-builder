@@ -176,6 +176,9 @@ MonoBehaviour:
   pedestrianMarkers:
   - {fileID: 709254190852352893}
   - {fileID: 1471476757625292166}
+  carMarkers:
+  - {fileID: 4160011880014415492}
+  - {fileID: 5815125177817416889}
   isCorner: 0
   hasCrosswalk: 0
 --- !u!1 &5697283863381589164

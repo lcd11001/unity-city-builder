@@ -99,6 +99,9 @@ MonoBehaviour:
   - {fileID: 7995031855865419927}
   - {fileID: 6443798249864014175}
   - {fileID: 6111858341924949877}
+  carMarkers:
+  - {fileID: 3261536845699895712}
+  - {fileID: 3138096379284167251}
   isCorner: 0
   hasCrosswalk: 0
 --- !u!1 &1940809701260077632
