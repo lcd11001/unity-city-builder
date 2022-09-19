@@ -35,7 +35,7 @@ public class StructureModel : MonoBehaviour, INeedingRoad
 
     public AiRoadMarker GetPedestrianSpawnMarker(Vector3 position)
     {
-        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetPerdestrianMarker(position);
+        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetPerdestrianSpawnMarker(position);
     }
 
     public List<AiRoadMarker> GetPedestrianMarkers()
@@ -46,6 +46,16 @@ public class StructureModel : MonoBehaviour, INeedingRoad
     public AiRoadMarker GetNearestCarMarkerTo(Vector3 position)
     {
         return transform.GetChild(0).GetComponent<AiRoadHelper>().GetNearestCarMarker(position);
+    }
+
+    public AiRoadMarker GetCarOutgoingMarker(Vector3 position)
+    {
+        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetCarOutgoingMarker(position);
+    }
+
+    public AiRoadMarker GetCarIncomingMarker(Vector3 position)
+    {
+        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetCarIncomingMarker(position);
     }
 
     public List<AiRoadMarker> GetCarMarkers()

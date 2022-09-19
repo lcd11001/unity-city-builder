@@ -45,23 +45,24 @@ namespace CityBuilder.AI
                     return;
                 }
 
-                var startMarker = placementManager.GetStructureAt(startPosition).GetNearestCarMarkerTo(startStructure.transform.position);
-                var endMarker = placementManager.GetStructureAt(endPosition).GetNearestCarMarkerTo(endStructure.transform.position);
-
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
 
-                if (path.Count > 0)
+                if (path.Count > 1)
                 {
                     path.Reverse();
 
-                    List<Vector3> agentPath = GetCarPath(path, startMarker.Position, endMarker.Position);
+                    var startMarker = placementManager.GetStructureAt(startPosition).GetCarOutgoingMarker(path[1]);
+                    var endMarker = placementManager.GetStructureAt(endPosition).GetCarIncomingMarker(path[path.Count - 2]);
 
-                    var car = Instantiate(carPrefab, startMarker.Position, Quaternion.identity);
-                    //var car = Instantiate(carPrefab, startPosition, Quaternion.identity);
-                    car.transform.SetParent(carGroup);
-                    var aiCar = car.GetComponent<AiCar>();
-                    aiCar.SetPath(agentPath);
-                    //aiCar.SetPath(path.ConvertAll(p => (Vector3)p));
+                    var carPath = GetCarPath(path, startMarker.Position, endMarker.Position);
+
+                    if (carPath.Count > 0)
+                    {
+                        var car = Instantiate(carPrefab, startMarker.Position, Quaternion.identity);
+                        car.transform.SetParent(carGroup);
+                        var aiCar = car.GetComponent<AiCar>();
+                        aiCar.SetPath(carPath);
+                    }
                 }
             }
         }
