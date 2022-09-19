@@ -8,7 +8,7 @@ using UnityEngine;
 public class PathVisualizer : MonoBehaviour
 {
     LineRenderer lineRenderer;
-    AiAgent currentAgent;
+    IAiBehaviour currentAgent;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class PathVisualizer : MonoBehaviour
         lineRenderer.positionCount = 0;
     }
 
-    public void ShowPath(List<Vector3> path, AiAgent agent, Color color)
+    public void ShowPath(List<Vector3> path, IAiBehaviour agent, Color color)
     {
         ResetPath();
 
@@ -26,7 +26,7 @@ public class PathVisualizer : MonoBehaviour
 
         for (int i=0; i<path.Count; i++)
         {
-            Vector3 position = new Vector3(path[i].x, agent.transform.position.y, path[i].z);
+            Vector3 position = new Vector3(path[i].x, agent.Position.y, path[i].z);
             lineRenderer.SetPosition(i, position);
         }
 

@@ -7,9 +7,10 @@ using UnityEngine;
 namespace CityBuilder.AI
 {
     [RequireComponent(typeof(Animator))]
-    public class AiAgent : MonoBehaviour
+    public class AiAgent : MonoBehaviour, IAiBehaviour
     {
-        public event Action OnDeath;
+        public event OnDeathHandler OnDeath;
+        public Vector3 Position => transform.position;
         Animator animator;
 
         public float speed = 0.2f;
@@ -22,6 +23,7 @@ namespace CityBuilder.AI
 
         public Color pathColor;
         PathVisualizer pathVisualizer;
+
 
         private void Start()
         {

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         GameObject hitObject = objectDetector.RaycastAll(ray);
         if (hitObject != null)
         {
-            var agent = hitObject.GetComponent<AiAgent>();
+            var agent = hitObject.GetComponent<IAiBehaviour>();
             agent?.ShowPath();
         }
     }

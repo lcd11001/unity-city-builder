@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AiCar : MonoBehaviour
+public class AiCar : MonoBehaviour, IAiBehaviour
 {
     [SerializeField] private List<Vector3> path = null;
 
@@ -13,9 +13,15 @@ public class AiCar : MonoBehaviour
     [SerializeField] private float turningAngleOffset = 5f;
     [SerializeField] private Vector3 currentTargetPosition;
 
+    [SerializeField] private Color pathColor;
+    PathVisualizer pathVisualizer;
+
     private int index = 0;
 
     private bool stop;
+
+    public event OnDeathHandler OnDeath;
+    public Vector3 Position => transform.position;
 
     public bool Stop
     {
@@ -26,8 +32,12 @@ public class AiCar : MonoBehaviour
     [field: SerializeField]
     public UnityEvent<Vector3> OnDrive { get; set; }
 
+
     private void Start()
     {
+        pathVisualizer = FindObjectOfType<PathVisualizer>();
+        pathColor = UnityEngine.Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
+
         if (path == null || path.Count == 0)
         {
             Stop = true;
@@ -36,6 +46,11 @@ public class AiCar : MonoBehaviour
         {
             currentTargetPosition = path[index];
         }
+    }
+
+    public void ShowPath()
+    {
+        pathVisualizer.ShowPath(path, this, pathColor);
     }
 
     public void SetPath(List<Vector3> path)
@@ -53,7 +68,7 @@ public class AiCar : MonoBehaviour
         Vector3 relativePoint = transform.InverseTransformPoint(this.path[index + 1]);
         float angle = Mathf.Atan2(relativePoint.x, relativePoint.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, angle, 0);
-        
+
         Stop = false;
     }
 
@@ -114,5 +129,10 @@ public class AiCar : MonoBehaviour
         {
             currentTargetPosition = path[index];
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnDeath?.Invoke();
     }
 }
