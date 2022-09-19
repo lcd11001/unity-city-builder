@@ -49,10 +49,11 @@ namespace CityBuilder.AI
 
                 if (path.Count > 1)
                 {
-                    path.Reverse();
-
                     var startMarker = placementManager.GetStructureAt(startPosition).GetCarOutgoingMarker(path[1]);
                     var endMarker = placementManager.GetStructureAt(endPosition).GetCarIncomingMarker(path[path.Count - 2]);
+
+                    Debug.Assert(startMarker != null, "can not find car start marker");
+                    Debug.Assert(endMarker != null, "can not find car end marker");
 
                     var carPath = GetCarPath(path, startMarker.Position, endMarker.Position);
 
@@ -96,12 +97,13 @@ namespace CityBuilder.AI
                 var startMarker = placementManager.GetStructureAt(startPosition).GetPedestrianSpawnMarker(startStructure.transform.position);
                 var endMarker = placementManager.GetStructureAt(endPosition).GetPedestrianSpawnMarker(endStructure.transform.position);
 
+                Debug.Assert(startMarker != null, "can not find pedestrian start marker");
+                Debug.Assert(endMarker != null, "can not find pedestrian end marker");
+
                 var path = placementManager.GetPathBetween(startPosition, endPosition, true);
 
                 if (path.Count > 0)
                 {
-                    path.Reverse();
-
                     List<Vector3> agentPath = GetPedestrianPath(path, startMarker.Position, endMarker.Position);
 
                     var agent = Instantiate(pedestrianPrefab, startMarker.Position, Quaternion.identity);

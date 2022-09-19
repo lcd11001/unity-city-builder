@@ -83,6 +83,7 @@ public class GridSearch {
             path.Add(parent);
             parent = parentMap[parent];
         }
+        path.Reverse();
         return path;
     }
 }
