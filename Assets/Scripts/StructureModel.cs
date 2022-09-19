@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CityBuilder.AI;
@@ -27,7 +28,7 @@ public class StructureModel : MonoBehaviour, INeedingRoad
         structure.transform.localRotation = rotation;
     }
 
-    public AiRoadMarker GetNearestMarkerTo(Vector3 position)
+    public AiRoadMarker GetNearestPedestrianMarkerTo(Vector3 position)
     {
         return transform.GetChild(0).GetComponent<AiRoadHelper>().GetNearestPedestrianMarker(position);
     }
@@ -40,5 +41,15 @@ public class StructureModel : MonoBehaviour, INeedingRoad
     public List<AiRoadMarker> GetPedestrianMarkers()
     {
         return transform.GetChild(0).GetComponent<AiRoadHelper>().GetAllPedestrianMarker();
+    }
+
+    public AiRoadMarker GetNearestCarMarkerTo(Vector3 position)
+    {
+        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetNearestCarMarker(position);
+    }
+
+    public List<AiRoadMarker> GetCarMarkers()
+    {
+        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetAllCarMarker();
     }
 }

@@ -12,6 +12,9 @@ namespace CityBuilder.AI
         protected List<AiRoadMarker> pedestrianMarkers;
 
         [SerializeField]
+        protected List<AiRoadMarker> carMarkers;
+
+        [SerializeField]
         protected bool isCorner;
 
         [SerializeField]
@@ -29,13 +32,13 @@ namespace CityBuilder.AI
             return GetClosetMarkerTo(currentPosition, pedestrianMarkers, isCorner);
         }
 
-        private AiRoadMarker GetClosetMarkerTo(Vector3 structurePosition, List<AiRoadMarker> pedestrianMarkers, bool isCorner = false)
+        private AiRoadMarker GetClosetMarkerTo(Vector3 currentPosition, List<AiRoadMarker> markers, bool isCorner = false)
         {
             if (isCorner)
             {
-                foreach (var marker in pedestrianMarkers)
+                foreach (var marker in markers)
                 {
-                    var direction = marker.Position - structurePosition;
+                    var direction = marker.Position - currentPosition;
                     if (Mathf.Abs(direction.x) < approximateThresholdCorner || Mathf.Abs(direction.z) < approximateThresholdCorner)
                     {
                         return marker;
@@ -46,9 +49,9 @@ namespace CityBuilder.AI
             {
                 AiRoadMarker closetMarker = null;
                 float distance = float.MaxValue;
-                foreach (var marker in pedestrianMarkers)
+                foreach (var marker in markers)
                 {
-                    var markerDistance = Vector3.Distance(structurePosition, marker.Position);
+                    var markerDistance = Vector3.Distance(currentPosition, marker.Position);
                     if (distance > markerDistance)
                     {
                         distance = markerDistance;
@@ -56,17 +59,27 @@ namespace CityBuilder.AI
                     }
                 }
 
-                Debug.Assert(closetMarker != null, $"1. can not get closet marker from structure {structurePosition} with {string.Join(",", pedestrianMarkers.Select(x => x.Position))}");
+                Debug.Assert(closetMarker != null, $"1. can not get closet marker from structure {currentPosition} with {string.Join(",", markers.Select(x => x.Position))}");
                 return closetMarker;
             }
 
-            Debug.Assert(false, $"2. can not get closet marker from structure {structurePosition} with {string.Join(",", pedestrianMarkers.Select(x => x.Position))}");
+            Debug.Assert(false, $"2. can not get closet marker from structure {currentPosition} with {string.Join(",", markers.Select(x => x.Position))}");
             return null;
         }
 
         public List<AiRoadMarker> GetAllPedestrianMarker()
         {
             return pedestrianMarkers;
+        }
+
+        public AiRoadMarker GetNearestCarMarker(Vector3 currentPosition)
+        {
+            return GetClosetMarkerTo(currentPosition, carMarkers, false);
+        }
+
+        public List<AiRoadMarker> GetAllCarMarker()
+        {
+            return carMarkers;
         }
     }
 

@@ -16,7 +16,8 @@ namespace CityBuilder.AI
         public Transform carGroup;
         public GameObject carPrefab;
 
-        AiAdjacencyGraph graph = new AiAdjacencyGraph();
+        AiAdjacencyGraph pedestrianGraph = new AiAdjacencyGraph();
+        AiAdjacencyGraph carGraph = new AiAdjacencyGraph();
 
         public void SpawnAllCars()
         {
@@ -112,15 +113,15 @@ namespace CityBuilder.AI
 
         private List<Vector3> GetPedestrianPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
         {
-            graph.ClearGraph();
+            pedestrianGraph.ClearGraph();
 
-            CreateGraph(path);
-            // Debug.Log(graph);
+            CreatePedestrianGraph(path);
+            // Debug.Log(pedestrianGraph);
 
-            return AiAdjacencyGraph.AStarSearch(graph, startPosition, endPosition);
+            return AiAdjacencyGraph.AStarSearch(pedestrianGraph, startPosition, endPosition);
         }
 
-        private void CreateGraph(List<Vector3Int> path)
+        private void CreatePedestrianGraph(List<Vector3Int> path)
         {
             Dictionary<AiRoadMarker, AiRoadMarker> tempDictionary = new Dictionary<AiRoadMarker, AiRoadMarker>();
 
@@ -136,10 +137,10 @@ namespace CityBuilder.AI
 
                 foreach (var marker in markerList)
                 {
-                    graph.AddVertex(marker.Position);
+                    pedestrianGraph.AddVertex(marker.Position);
                     foreach (var markerNeighbourPosition in marker.GetAdjacentPositions())
                     {
-                        graph.AddEdge(marker.Position, markerNeighbourPosition);
+                        pedestrianGraph.AddEdge(marker.Position, markerNeighbourPosition);
                     }
 
                     if (marker.OpenForConnection && i + 1 < path.Count)
@@ -151,9 +152,9 @@ namespace CityBuilder.AI
                         }
                         else
                         {
-                            graph.AddEdge(marker.Position, nextRoadStructure.GetNearestMarkerTo(marker.Position).Position);
+                            pedestrianGraph.AddEdge(marker.Position, nextRoadStructure.GetNearestPedestrianMarkerTo(marker.Position).Position);
                             
-                            marker.ConnectToMarker(nextRoadStructure.GetNearestMarkerTo(marker.Position));
+                            marker.ConnectToMarker(nextRoadStructure.GetNearestPedestrianMarkerTo(marker.Position));
                         }
                     }
                 }
@@ -163,9 +164,38 @@ namespace CityBuilder.AI
                     var distanceSortedMarkers = tempDictionary.OrderBy(x => Vector3.Distance(x.Key.Position, x.Value.Position)).ToList();
                     for (int j = 0; j<2; j++)
                     {
-                        graph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value.Position);
+                        pedestrianGraph.AddEdge(distanceSortedMarkers[j].Key.Position, distanceSortedMarkers[j].Value.Position);
 
                         distanceSortedMarkers[j].Key.ConnectToMarker(distanceSortedMarkers[j].Value);
+                    }
+                }
+            }
+        }
+
+        private List<Vector3> GetCarPath(List<Vector3Int> path, Vector3 startPosition, Vector3 endPosition)
+        {
+            carGraph.ClearGraph();
+
+            CreateCarGraph(path);
+            // Debug.Log(carGraph);
+
+            return AiAdjacencyGraph.AStarSearch(carGraph, startPosition, endPosition);
+        }
+
+        private void CreateCarGraph(List<Vector3Int> path)
+        {
+            for (int i = 0; i < path.Count; i++)
+            {
+                var currentPosition = path[i];
+                var roadStructure = placementManager.GetStructureAt(currentPosition);
+                var markerList = roadStructure.GetCarMarkers();
+
+                foreach (var marker in markerList)
+                {
+                    carGraph.AddVertex(marker.Position);
+                    foreach (var markerNeighbour in marker.adjacentMarkers)
+                    {
+                        carGraph.AddEdge(marker.Position, markerNeighbour.Position);
                     }
                 }
             }
