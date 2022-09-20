@@ -135,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8249578937786945616}
   - component: {fileID: 4028280440816815193}
+  - component: {fileID: 2850191512990413894}
   m_Layer: 0
   m_Name: Street_Straight
   m_TagString: Untagged
@@ -181,6 +182,20 @@ MonoBehaviour:
   - {fileID: 5815125177817416889}
   isCorner: 0
   hasCrosswalk: 0
+--- !u!114 &2850191512990413894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5661862354351878554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6064775be0edc0b4fa634ef2c6bd0d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  incomming: {fileID: 5815125177817416889}
+  outgoing: {fileID: 4160011880014415492}
 --- !u!1 &5697283863381589164
 GameObject:
   m_ObjectHideFlags: 0

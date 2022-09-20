@@ -193,6 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948541103045650221}
   - component: {fileID: 1410621645789040463}
+  - component: {fileID: 2749302203395621070}
   m_Layer: 0
   m_Name: Street_3Way
   m_TagString: Untagged
@@ -251,6 +252,28 @@ MonoBehaviour:
   - {fileID: 7618734754100387919}
   isCorner: 0
   hasCrosswalk: 1
+--- !u!114 &2749302203395621070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2384947387477557946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb73316bb9fefa94190726947bfb7508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  incomming: {fileID: 0}
+  outgoing: {fileID: 0}
+  incommingMarkers:
+  - {fileID: 7836279911867313352}
+  - {fileID: 5543677227647375219}
+  - {fileID: 1120896648632963100}
+  outgoingMarkers:
+  - {fileID: 9105101729792299139}
+  - {fileID: 4097759298115463803}
+  - {fileID: 7618734754100387919}
 --- !u!1 &2538660982501456675
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5050815491845245321}
   - component: {fileID: 7618734754100387919}
+  - component: {fileID: 963100408445702175}
   m_Layer: 0
   m_Name: CarMarkerBottomRight
   m_TagString: Untagged
@@ -391,6 +415,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentMarkers: []
   openForConnection: 1
+--- !u!114 &963100408445702175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820648843258761854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c3b0bbdae36b341a4668d2da30c8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pedestrianMarkers: []
+  carMarkers: []
+  isCorner: 0
+  hasCrosswalk: 0
 --- !u!1 &5299061615107493008
 GameObject:
   m_ObjectHideFlags: 0

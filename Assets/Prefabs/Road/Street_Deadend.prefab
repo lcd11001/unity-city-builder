@@ -56,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2100345786477648002}
   - component: {fileID: 1294247185297339456}
+  - component: {fileID: 2838309312620264881}
   m_Layer: 0
   m_Name: Street_Deadend
   m_TagString: Untagged
@@ -104,6 +105,18 @@ MonoBehaviour:
   - {fileID: 3138096379284167251}
   isCorner: 0
   hasCrosswalk: 0
+--- !u!114 &2838309312620264881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120765361980748800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cea48dbd9214841b3d98e2311d1d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   incomming: {fileID: 3138096379284167251}
   outgoing: {fileID: 3261536845699895712}
 --- !u!1 &1940809701260077632

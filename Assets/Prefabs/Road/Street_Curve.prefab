@@ -330,6 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8378608801953597997}
   - component: {fileID: 6464523273930602040}
+  - component: {fileID: 2113958506229573319}
   m_Layer: 0
   m_Name: Street_Curve
   m_TagString: Untagged
@@ -383,6 +384,26 @@ MonoBehaviour:
   - {fileID: 2873571962226566086}
   isCorner: 1
   hasCrosswalk: 0
+--- !u!114 &2113958506229573319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077802812573144028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb73316bb9fefa94190726947bfb7508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  incomming: {fileID: 0}
+  outgoing: {fileID: 0}
+  incommingMarkers:
+  - {fileID: 5297429697069715302}
+  - {fileID: 3985071538748106396}
+  outgoingMarkers:
+  - {fileID: 5774776326901412544}
+  - {fileID: 2873571962226566086}
 --- !u!1 &7780019768938000684
 GameObject:
   m_ObjectHideFlags: 0

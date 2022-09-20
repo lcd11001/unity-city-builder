@@ -50,12 +50,12 @@ public class StructureModel : MonoBehaviour, INeedingRoad
 
     public AiRoadMarker GetCarOutgoingMarker(Vector3 position)
     {
-        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetCarOutgoingMarker(position);
+        return transform.GetChild(0).GetComponent<ICarMarker>().GetCarOutgoingMarker(position);
     }
 
     public AiRoadMarker GetCarIncomingMarker(Vector3 position)
     {
-        return transform.GetChild(0).GetComponent<AiRoadHelper>().GetCarIncomingMarker(position);
+        return transform.GetChild(0).GetComponent<ICarMarker>().GetCarIncomingMarker(position);
     }
 
     public List<AiRoadMarker> GetCarMarkers()
