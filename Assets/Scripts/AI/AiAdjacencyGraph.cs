@@ -43,18 +43,30 @@ namespace CityBuilder.AI
             return Vector3.SqrMagnitude(position1 - position2) < 0.0001f;
         }
 
-        public void AddEdge(Vector3 position1, Vector3 position2)
+        public void AddEdge(Vector3 startPosition, Vector3 endPosition)
         {
-            if (CompareVertices(position1, position2))
+            if (CompareVertices(startPosition, endPosition))
             {
                 return;
             }
 
-            var v1 = GetVertexAt(position1) ?? new AiVertex(position1);
-            var v2 = GetVertexAt(position2) ?? new AiVertex(position2);
+            var v1 = GetVertexAt(startPosition);
+            if (v1 == null)
+            {
+                v1 = new AiVertex(startPosition);
+                AddVertex(v1);
+            }
+            var v2 = GetVertexAt(endPosition);
+            if (v2 == null)
+            {
+                v2 = new AiVertex(endPosition);
+                AddVertex(v2);
+            }
 
+            // add 1 edge for directed graph
             AddEdgeBetween(v1, v2);
-            AddEdgeBetween(v2, v1);
+            // add 2 edges for un-directed graph
+            //AddEdgeBetween(v2, v1);
         }
 
         private void AddEdgeBetween(AiVertex v1, AiVertex v2)
