@@ -2,9 +2,8 @@
 <!--
  The following server configuration can be used for compressed WebGL builds without decompression fallback.
  This configuration file should be uploaded to the server as "<Application Folder>/Build/web.config".
- This configuration has been tested with Unity 2020.1 builds, hosted on IIS 7.5, IIS 8.5, and IIS 10.0.
- NOTE: To host compressed WebGL builds without decompression fallback,
-you need to install the "URL Rewrite" IIS module on the server.
+
+NOTE: To host compressed WebGL builds without decompression fallback, you need to install the "URL Rewrite" IIS module on the server.
 Otherwise, IIS will throw an exception when using this configuration file.
 This module is available at https://www.iis.net/downloads/microsoft/url-rewrite.
 -->
