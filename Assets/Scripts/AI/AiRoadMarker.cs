@@ -28,6 +28,7 @@ namespace CityBuilder.AI
             connectedMarkers.Add(other);
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (Selection.activeObject == gameObject)
@@ -53,5 +54,6 @@ namespace CityBuilder.AI
              
             Gizmos.color = Color.white;
         }
+#endif
     }
 }
