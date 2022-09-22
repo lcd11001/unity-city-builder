@@ -14,6 +14,12 @@ public class AiCar : MonoBehaviour, IAiBehaviour
     [SerializeField] private Vector3 currentTargetPosition;
 
     [SerializeField] private Color pathColor;
+
+    public bool IsThisLastPathIndex()
+    {
+        return index >= path.Count - 1;
+    }
+
     PathVisualizer pathVisualizer;
 
     private int index = 0;

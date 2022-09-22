@@ -194,6 +194,8 @@ GameObject:
   - component: {fileID: 1948541103045650221}
   - component: {fileID: 1410621645789040463}
   - component: {fileID: 2749302203395621070}
+  - component: {fileID: 3368515045620384265}
+  - component: {fileID: 5709240272298339218}
   m_Layer: 0
   m_Name: Street_3Way
   m_TagString: Untagged
@@ -274,6 +276,32 @@ MonoBehaviour:
   - {fileID: 9105101729792299139}
   - {fileID: 4097759298115463803}
   - {fileID: 7618734754100387919}
+--- !u!65 &3368515045620384265
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2384947387477557946}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99, y: 0.5, z: 0.99}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &5709240272298339218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2384947387477557946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ec39fc82fce304bb0a828c9e245a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCar: {fileID: 0}
 --- !u!1 &2538660982501456675
 GameObject:
   m_ObjectHideFlags: 0

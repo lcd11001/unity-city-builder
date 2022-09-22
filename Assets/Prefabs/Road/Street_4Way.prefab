@@ -201,6 +201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5155644068091976813}
   - component: {fileID: 687008945346821967}
+  - component: {fileID: 5087523233747217365}
+  - component: {fileID: 7325984951810744407}
   m_Layer: 0
   m_Name: Street_4Way
   m_TagString: Untagged
@@ -261,6 +263,32 @@ MonoBehaviour:
   - {fileID: 3596927042742650891}
   isCorner: 0
   hasCrosswalk: 1
+--- !u!65 &5087523233747217365
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351635067702010651}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99, y: 0.5, z: 0.99}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &7325984951810744407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3351635067702010651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ec39fc82fce304bb0a828c9e245a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCar: {fileID: 0}
 --- !u!1 &3365210223924509108
 GameObject:
   m_ObjectHideFlags: 0
