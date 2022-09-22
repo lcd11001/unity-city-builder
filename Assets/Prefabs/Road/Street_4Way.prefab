@@ -952,6 +952,7 @@ MonoBehaviour:
   adjacentMarkers:
   - {fileID: 8724376385368318099}
   - {fileID: 8621107580188270781}
+  - {fileID: 3325029980820564111}
   openForConnection: 0
 --- !u!1 &7919206208228020609
 GameObject:
@@ -1046,6 +1047,7 @@ MonoBehaviour:
   adjacentMarkers:
   - {fileID: 1687011666233724634}
   - {fileID: 7944487211793195541}
+  - {fileID: 8724376385368318099}
   openForConnection: 0
 --- !u!1001 &2310232424690187225
 PrefabInstance:
