@@ -8,12 +8,18 @@ public class AiCar : MonoBehaviour, IAiBehaviour
 {
     [SerializeField] private List<Vector3> path = null;
 
+    [Space(10)]
     [SerializeField] private float arriveDistance = .3f;
     [SerializeField] private float lastPointArriveDistance = .1f;
     [SerializeField] private float turningAngleOffset = 5f;
     [SerializeField] private Vector3 currentTargetPosition;
 
+    [Space(10)]
     [SerializeField] private Color pathColor;
+
+    [Space(10)]
+    [SerializeField] private GameObject raycastStartingPoint = null;
+    [SerializeField] private float collisionRaycastLength = 0.1f;
 
     public bool IsThisLastPathIndex()
     {
@@ -25,13 +31,14 @@ public class AiCar : MonoBehaviour, IAiBehaviour
     private int index = 0;
 
     private bool stop;
+    private bool collisionStop = false;
 
     public event OnDeathHandler OnDeath;
     public Vector3 Position => transform.position;
 
     public bool Stop
     {
-        get { return stop; }
+        get { return stop || collisionStop; }
         set { stop = value; }
     }
 
@@ -82,6 +89,19 @@ public class AiCar : MonoBehaviour, IAiBehaviour
     {
         CheckIfArrived();
         Drive();
+        CheckForCollision();
+    }
+
+    private void CheckForCollision()
+    {
+        if (Physics.Raycast(raycastStartingPoint.transform.position, transform.forward, collisionRaycastLength, 1 << gameObject.layer))
+        {
+            collisionStop = true;
+        }
+        else
+        {
+            collisionStop = false;
+        }
     }
 
     private void Drive()
