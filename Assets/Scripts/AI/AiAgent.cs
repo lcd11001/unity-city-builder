@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CityBuilder.AI
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Animator), typeof(Rigidbody))]
     public class AiAgent : MonoBehaviour, IAiBehaviour
     {
         public event OnDeathHandler OnDeath;
@@ -23,13 +23,40 @@ namespace CityBuilder.AI
 
         public Color pathColor;
         PathVisualizer pathVisualizer;
+        private bool stop;
+        Rigidbody rb;
 
+        public bool Stop 
+        { 
+            get => stop; 
+            set 
+            {
+                stop = value;
+                if (stop)
+                {
+                    rb.velocity = Vector3.zero;
+                    animator.SetBool("Walk", false);
+                }
+                else
+                {
+                    animator.SetBool("Walk", true);
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+        }
 
         private void Start()
         {
             pathVisualizer = FindObjectOfType<PathVisualizer>();
             pathColor = UnityEngine.Random.ColorHSV(0f, 1f, 0f, 1f, 0f, 1f);
         }
+
+
 
         public void ShowPath()
         {
@@ -48,13 +75,12 @@ namespace CityBuilder.AI
             index = 1;
             moveFlag = true;
             endPosition = pathToGo[index];
-            animator = GetComponent<Animator>();
-            animator.SetTrigger("Walk");
+            Stop = false;
         }
 
         private void Update()
         {
-            if (moveFlag)
+            if (moveFlag && Stop == false)
             {
                 PerformMovement();
             }
@@ -71,7 +97,14 @@ namespace CityBuilder.AI
                     if (index >= pathToGo.Count)
                     {
                         moveFlag = false;
-                        Destroy(gameObject);
+                        if (gameObject.transform.parent != null)
+                        {
+                            Destroy(gameObject.transform.parent.gameObject);
+                        }
+                        else
+                        {
+                            Destroy(gameObject);
+                        }
                         return;
                     }
 
@@ -84,7 +117,8 @@ namespace CityBuilder.AI
         {
             float step = speed * Time.deltaTime;
             Vector3 targetPosition = new Vector3(endPosition.x, transform.position.y, endPosition.z); // don't change AI y position
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            //transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            rb.velocity = transform.forward * speed;
 
             var lookDirection = targetPosition - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), Time.deltaTime * rotationSpeed);
