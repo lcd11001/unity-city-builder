@@ -40,7 +40,7 @@ public class PlayableObject : MonoBehaviour
         return transform.TransformPoint(Vertices[0]);
     }
 
-    private void Start()
+    private void Awake()
     {
         GetColliderVerticesPositionLocal();
         CalculateSizeInCells();

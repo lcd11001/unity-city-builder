@@ -19,6 +19,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private GameObject hitSphere;
 
     private PlayableObject objectToPlace;
+    private TintColorObject tintColorObject;
     private bool mouseFilter = false;
 
     private void Awake()
@@ -47,11 +48,11 @@ public class BuildingSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            PlaceObject(prefab1);
+            InitPlaceObject(prefab1);
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
-            PlaceObject(prefab2);
+            InitPlaceObject(prefab2);
         }
 
         if (!objectToPlace)
@@ -59,22 +60,34 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
+        bool canBePlace = CanBePlaced(objectToPlace);
+        if (!canBePlace)
+        {
+            tintColorObject.TintColor(new Color(1.0f, 0f, 0f, 0.8f));
+        }
+        else
+        {
+            tintColorObject.ResetColor();
+        }
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
             objectToPlace.Rotate();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (CanBePlaced(objectToPlace))
+            if (canBePlace)
             {
                 objectToPlace.Place();
                 Vector3Int start = GetWorldToCell(objectToPlace.GetStartPosition());
                 TakeArea(start, objectToPlace.Size);
+                Destroy(objectToPlace);
+                objectToPlace = null;
             }
-            else
-            {
-                Destroy(objectToPlace.gameObject);
-            }
+            //else
+            //{
+            //    Destroy(objectToPlace.gameObject);
+            //}
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -118,13 +131,14 @@ public class BuildingSystem : MonoBehaviour
         return array;
     }
 
-    public void PlaceObject(GameObject prefab)
+    public void InitPlaceObject(GameObject prefab)
     {
         Vector3 pos = SnapCoordinateToGrid(Vector3.zero);
-        GameObject obj = Instantiate(prefab, pos, Quaternion.identity);
+        GameObject obj = Instantiate(prefab, pos, Quaternion.identity, MainTilemap.transform);
 
         obj.AddComponent<ObjectDrag>();
         objectToPlace = obj.AddComponent<PlayableObject>();
+        tintColorObject = obj.AddComponent<TintColorObject>();
     }
 
     private bool CanBePlaced(PlayableObject playableObject)
